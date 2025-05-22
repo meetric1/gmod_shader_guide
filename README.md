@@ -165,6 +165,10 @@ Note how, in the .vmt, I define `$c0_y` despite it not being used in the shader 
 After playing around with the vmt, open `example3_ps2x.hlsl` and try to understand its code.\
 Try doing something with the unused `$c0_y` parameter!
 
+> [!TIP]
+> There are some more, undocumented pixel shader constants that are automatically set by Source Engine. They can be viewed [here](https://github.com/ficool2/sdk_screenspace_shaders/blob/94071cb6d464a7c04ced726770ca87a7ecd5d9a1/shadersrc/common.hlsl#L29).\
+> Most aren't too useful, but someone might find them handy one day
+
 # [Example 4] - GPU Control Flow
 gpus are good at floats
 No loops with sm2x, sm30 supports but linux only
