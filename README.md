@@ -36,7 +36,7 @@ You may be asking to yourself, `what is a shader and why should I care?`, well h
 
 Here are some examples of some cool shaders:\
 **GMod Grass shader:**\
-![ezgif-6cc1d64c834c1c](https://github.com/user-attachments/assets/f2591375-7e00-41e9-a924-20f3f80d6818)\
+![ezgif-6bf72fdcc49f1b](https://github.com/user-attachments/assets/66115f5f-2375-4429-a73d-253d35cda73d)\\
 **GMod Ground Displacement (Evgeny Akabenko):**\
 ![image](https://github.com/user-attachments/assets/596fe2db-c05d-4a37-b293-a2764caeb349)\
 **GMod Volumetric Clouds (Evgeny Akabenko):**\
