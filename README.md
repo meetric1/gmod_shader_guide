@@ -97,16 +97,17 @@ For reference, the name of a shader is very important, so lets split it into 4 p
 
 You must ENSURE that the name stays exactly in this format, or the tools provided won't work.
 
-Once you are done, drag it on top of `build_single_shader.bat` and it should compile and automatically put the shader into `fxc`, which is where GMod shaders are loaded from.\
+Now, we're going to overwrite an existing shader with this new one.\
+Drag `example1_ps2x.hlsl` on top of `build_single_shader.bat` and it should compile and automatically put the shader into `fxc`, which is where GMod shaders are loaded from.\
 Compiled shaders are `.vcs` files, which stands for `Valve Compiled Shader`.
 
 Next time you go in game (don't forget to type `shader_example 1`!), you should see a bright green square at the top left of your screen. If you do, congratulations! You have successfully compiled your first shader.
 
-If the square is red, the shader hasn't overwritten anything and you've probably missed a step. Try restarting your game or checking for compile errors.
+If the square is red, we haven't overwritten anything and you've probably missed a step. Try restarting your game or checking for compile errors.
 
 > [!NOTE]
 > Editing (or recompiling) a shader without modifying the .vmt requires a game restart. 
-> Until you wanna start editing .vmt's I suggest just restarting the game as it is the easiest method. Launching the game with `-noworkshop` helps a lot with load times.
+> Until you want to start editing .vmt's I suggest just restarting the game as it is the easiest method. Launching the game with `-noworkshop` helps a lot with load times.
 
 > [!TIP]
 > When you eventually start developing your own shaders, make sure to give them a distinct name, or you might get conflictions
@@ -114,24 +115,28 @@ If the square is red, the shader hasn't overwritten anything and you've probably
 ![image](https://github.com/user-attachments/assets/f009c4a2-4e2b-4b65-a297-7f8fa9434880)
 
 # [Example 2] - Pixel Shaders
-Pixel (also known as Fragment) shaders run a section of code for every pixel on the screen.\
+Pixel (or more accurately, Fragment) shaders run a section of code for every pixel on the screen.\
 In the first example, we learned how to compile a basic shader, but now we're going to try modifying one.
 
-Navigate to `gmod_shader_guide/shaders` and open `example2_ps2x.hlsl` (preferably so both this guide, and the code are in view).\
+Navigate to `gmod_shader_guide/shaders` and open `example2_ps2x.hlsl`.\
 I have overcommented `example2_ps2x.hlsl`. Read that to get a basic grasp of the HLSL syntax. It is a lot like C or C++.\
-Feel free to try modifying the shader to do something different. Don't forget to recompile your shader!
+Try modifying the shader to do something different. Don't forget to recompile your shader!
 
-If you would like to try changing the shader ingame, compile your shader and then navigate to `gmod_shader_guide/shaders/fxc` and change `example2_ps20b.vcs` to something like `example2a_ps20b.vcs`.\
+If you would like to try changing the shader ingame, compile your shader, navigate to `gmod_shader_guide/shaders/fxc` and change `example2_ps20b.vcs` to something like `example2a_ps20b.vcs`.\
 Now, navigate to `gmod_shader_guide/materials/gmod_shader_guide` and open `example2.vmt` in any text editor (notepad or Visual Studio Code works fine)\
 Like I explained before, .vmt files control information about the material. In this case, we are interested in the `$pixshader` flag which controls the pixel shader the material uses. Change it to whatever you renamed the shader to, so the line looks something like `$pixshader "example2a_ps20b"`, save it, and view your changes.
 
 > [!NOTE]
-> If you are trying to update the shader ingame, ensure the compiled .vcs shader exists before saving changes to the .vmt
+> When hotloading shaders, once a name is used, it cannot be used again. So if you wanted to change your shader you'd need to name it something like `example2b_ps20b`
 
 > [!NOTE]
+> When hotloading shaders, ensure the compiled .vcs shader exists before saving changes to the .vmt
+
+> [!TIP]
 > You might have noticed the `$ignorez 1` flag in the .vmt, this is because all screenspace shaders *need* this flag to work properly! Otherwise they might not render
 
 # [Example 3] - Pixel Shader Constants
+Hopefully by now you have a basic grasp of the HLSL syntax
 
 # [Example 4] - GPU Control Flow
 No loops with sm2x, sm30 supports but linux only
@@ -139,7 +144,10 @@ No loops with sm2x, sm30 supports but linux only
 
 # We're done!
 If you made it here, you (hopefully) have read and understand everything there is to know (or atleast, that I know) about GMod shaders.\
-Please note that this is NOT a comprehensive guide on everything HLSL! There is still plenty more to learn, but this is definitely a good starting point.\
+Please note that this is NOT a comprehensive guide on everything HLSL! There is still plenty more to learn, but this is definitely a good starting point.
+
+If you want more shader examples, check out shaders in the [Source SDK](https://github.com/ValveSoftware/source-sdk-2013/tree/master/src/materialsystem/stdshaders) (labeled as .fxc)
+
 Feel free to ask questions (or concerns) in the Issues tab. I will answer them best I can :)
 
 __Happy shading!__
