@@ -62,6 +62,9 @@ This guide won't go into the specifics of the math. For now, all you need to kno
 Source engine has a custom extension named `vmt`. This basically controls aspects (flags) of a custom material.\
 In this case, we are taking advantage of a shader named `screenspace_general`, which lets us set custom vertex and pixel shaders.
 
+> [!NOTE]
+> A material can have many flags, but only 1 shader.
+
 Despite its name, screenspace_general is not actually screenspace (as of the 2015 CS:S branch), and was likely used for testing.\
 See [Example 9] for more specific information regarding screenspace_general
 
@@ -82,14 +85,16 @@ Each example will teach you about a specific topic about shaders. My hope is tha
 > **PLEASE LOAD INTO** `gm_construct`, **AS ITS ORIGIN IS RELATIVELY CLOSE TO THE SPAWN POINT. IT IS THE MAP THESE VISUALS ARE BASED AROUND**.
 
 Once loaded in, you should be able to type `shader_example 1` in your console to view the first shader. (It should just be a red rectangle on your screen) It isn't very interesting but we'll work on making some cool shaders.
-(IMAGE OF EXAMPLE_SHADER1)
 
 # [Example 1] - Your First Shader
 In order to make a shader, we will need something to compile it. For this guide I have decided to use [ShaderCompile](https://github.com/SCell555/ShaderCompile), as it supports 64 bit and is a hell of a lot easier than setting up the normal sourceengine shader compiler.\
 I am also using an edited version of [ficool2's](https://github.com/ficool2/sdk_screenspace_shaders) `build_single_shader.bat`.
 
-Please close GMod and navigate inside this repo to `gmod_shader_guide/shaders` and find `example1_ps2x.hlsl`.\
-For reference, the name of a shader is very important, so lets split it into 4 parts.
+Please close GMod and navigate inside this repo to `gmod_shader_guide/shaders`.\
+The source code of all the shaders are in this folder as `.hlsl` files.\
+You may have also noticed a bunch of `.h` files too. Ignore these for now, we'll use them in our shaders later
+
+Now, for reference, the name of a shader is very important, so lets split it into 4 parts.
 1. `example1` - The name of the shader, this can be anything you want.
 2. `ps` - Stands for Pixel Shader, can also be `vs` (Can you guess what it stands for?)
 3. `2x` - The shader version. I will be using `2x`, as it is the most supported. `30` is also valid and has less restrictions, but does not work on native Linux
@@ -123,11 +128,12 @@ I have overcommented `example2_ps2x.hlsl`. Read that to get a basic grasp of the
 Try modifying the shader to do something different. Don't forget to recompile your shader!
 
 If you would like to try changing the shader ingame, compile your shader, navigate to `gmod_shader_guide/shaders/fxc` and change `example2_ps20b.vcs` to something like `example2a_ps20b.vcs`.\
-Now, navigate to `gmod_shader_guide/materials/gmod_shader_guide` and open `example2.vmt` in any text editor (notepad or Visual Studio Code works fine)\
+Now, navigate to `gmod_shader_guide/materials/gmod_shader_guide`. This is the folder which holds all of the materials.\
+Open `example2.vmt` in any text editor (notepad or Visual Studio Code works fine)\
 Like I explained before, .vmt files control information about the material. In this case, we are interested in the `$pixshader` flag which controls the pixel shader the material uses. Change it to whatever you renamed the shader to, so the line looks something like `$pixshader "example2a_ps20b"`, save it, and view your changes.
 
 > [!NOTE]
-> When hotloading shaders, once a name is used, it cannot be used again. So if you wanted to change your shader you'd need to name it something like `example2b_ps20b`
+> When hotloading shaders, once a name is used, it cannot be used again. So if you wanted to change your shader a second time, you'd need to name it something like `example2b_ps20b`
 
 > [!NOTE]
 > When hotloading shaders, ensure the compiled .vcs shader exists before saving changes to the .vmt
@@ -136,11 +142,34 @@ Like I explained before, .vmt files control information about the material. In t
 > You might have noticed the `$ignorez 1` flag in the .vmt, this is because all screenspace shaders *need* this flag to work properly! Otherwise they might not render
 
 # [Example 3] - Pixel Shader Constants
-Hopefully by now you have a basic grasp of the HLSL syntax
+Hopefully by now you have a basic grasp of the HLSL syntax. Now we're going to be looking at a slightly more complex shader.\
+(Type `shader_example 3` in console and take a quick look at what our shader produces)
+
+In this shader, we are sampling from a texture, and inputting CurTime to make it appear animated.
+
+As we already know, each .vmt represents a material, with a shader. What we're doing, is giving the material a global value which the shader can use. 
+In this case, we are inputting CurTime, which you can see in the `example3` function in `gmod_shader_guide/lua/autorun/client/shader_examples.lua`.
+
+Unfortunately, screenspace_general has a limited number of global constants we are allowed to input (which you can see [here](https://developer.valvesoftware.com/wiki/Screenspace_General)). However, I find it unlikely you will actually need to use all of them.
+
+In this example, I am using input `$c0_x`, which takes a float to give CurTime to the shader.
+
+Now, lets check the code behind this shader..\
+Open `example3.vmt` and take a look at its parameters. Try editing the basetexture and seeing what changes!
+
+Note how, in the .vmt, I define `$c0_y` despite it not being used in the shader HLSL.\
+After playing around with the vmt, open `example3_ps2x.hlsl` and try to understand its code.\
+Try doing something with the unused `$c0_y` parameter!
 
 # [Example 4] - GPU Control Flow
+gpus are good at floats
 No loops with sm2x, sm30 supports but linux only
 
+# [Example 5] - Rendertargets
+volumetric textures (prolly need another example for this one)
+
+# [Example 6] - Vertex Shader Constants
+explain #include and how it also works in pixel shader
 
 # We're done!
 If you made it here, you (hopefully) have read and understand everything there is to know (or atleast, that I know) about GMod shaders.\

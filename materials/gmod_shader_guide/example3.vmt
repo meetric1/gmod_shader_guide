@@ -1,0 +1,8 @@
+screenspace_general 
+{
+	$pixshader "example3_ps20b"
+	$basetexture "models/props_combine/combine_interface_disp"
+	$c0_x 0
+	$c0_y 1
+	$ignorez 1
+}
