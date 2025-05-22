@@ -100,7 +100,7 @@ You must ENSURE that the name stays exactly in this format, or the tools provide
 Once you are done, drag it on top of `build_single_shader.bat` and it should compile and automatically put the shader into `fxc`, which is where GMod shaders are loaded from.\
 Compiled shaders are `.vcs` files, which stands for `Valve Compiled Shader`.
 
-Next time you go in game, you should see a bright green square at the top left of your screen. If you do, congratulations! You have successfully compiled your first shader.
+Next time you go in game (don't forget to type `shader_example 1`!), you should see a bright green square at the top left of your screen. If you do, congratulations! You have successfully compiled your first shader.
 
 If the square is red, the shader hasn't overwritten anything and you've probably missed a step. Try restarting your game or checking for compile errors.
 
@@ -110,6 +110,8 @@ If the square is red, the shader hasn't overwritten anything and you've probably
 
 > [!TIP]
 > When you eventually start developing your own shaders, make sure to give them a distinct name, or you might get conflictions
+
+![image](https://github.com/user-attachments/assets/f009c4a2-4e2b-4b65-a297-7f8fa9434880)
 
 # [Example 2] - Pixel Shaders
 Pixel (also known as Fragment) shaders run a section of code for every pixel on the screen.\
