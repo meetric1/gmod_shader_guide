@@ -60,7 +60,7 @@ This guide won't go into the specifics of the math. For now, all you need to kno
 (Feel free to skip this section if you already know about how .vmt's work)
 
 Source engine has a custom extension named `vmt`. This basically controls aspects (flags) of a custom material.\
-In this case, we are taking advantage of a shader named screenspace_general, which lets us set custom vertex and pixel shaders.
+In this case, we are taking advantage of a shader named `screenspace_general`, which lets us set custom vertex and pixel shaders.
 
 Despite its name, screenspace_general is not actually screenspace (as of the 2015 CS:S branch), and was likely used for testing.\
 See [Example 9] for more specific information regarding screenspace_general
