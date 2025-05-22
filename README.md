@@ -20,7 +20,7 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [Getting Started](#getting-started)
 - [[Example 1] - Your First Shader](#example-1---your-first-shader)
 - [[Example 2] - Pixel Shaders](#example-2---pixel-shaders)
-- [[Example 3] - pixel shader constants]
+- [[Example 3] - Pixel Shader Constants](#example-3---pixel-shader-constants)
 - [[Example 4] - gpu control flow]
 - [[Example 5] - rendertargets]
 - [[Example 6] - vertex shaders]
@@ -90,15 +90,16 @@ Once loaded in, you should be able to type `shader_example 1` in your console to
 In order to make a shader, we will need something to compile it. For this guide I have decided to use [ShaderCompile](https://github.com/SCell555/ShaderCompile), as it supports 64 bit and is a hell of a lot easier than setting up the normal sourceengine shader compiler.\
 I am also using an edited version of [ficool2's](https://github.com/ficool2/sdk_screenspace_shaders) `build_single_shader.bat`.
 
-Please close GMod and navigate inside this repo to `gmod_shader_guide/shaders`.\
+After taking a look at `shader_example 1`, please close GMod and navigate inside this repo to `gmod_shader_guide/shaders`.\
 The source code of all the shaders are in this folder as `.hlsl` files.\
 You may have also noticed a bunch of `.h` files too. Ignore these for now, we'll use them in our shaders later
 
-Now, for reference, the name of a shader is very important, so lets split it into 4 parts.
+Now, for reference, the name of a shader is very important, so lets split it into 5 parts.
 1. `example1` - The name of the shader, this can be anything you want.
-2. `ps` - Stands for Pixel Shader, can also be `vs` (Can you guess what it stands for?)
-3. `2x` - The shader version. I will be using `2x`, as it is the most supported. `30` is also valid and has less restrictions, but does not work on native Linux
-4. `.hlsl` - The file extension, all source shaders use hlsl
+2. `_` - Required underscore to separate the name and the rest of the data.
+3. `ps` - Stands for Pixel Shader, can also be `vs` (Can you guess what it stands for?)
+4. `2x` - The shader version. I will be using `2x`, as it is the most supported. `30` is also valid and has less restrictions, but does not work on native Linux
+5. `.hlsl` - The file extension, all source shaders use hlsl
 
 You must ENSURE that the name stays exactly in this format, or the tools provided won't work.
 
@@ -121,9 +122,11 @@ If the square is red, we haven't overwritten anything and you've probably missed
 
 # [Example 2] - Pixel Shaders
 Pixel (or more accurately, Fragment) shaders run a section of code for every pixel on the screen.\
-In the first example, we learned how to compile a basic shader, but now we're going to try modifying one.
+In the first example, we learned how to compile a basic shader, but now we're going to try modifying one.\
+Type `shader_example 2` in console and take a quick look at what this shader currently produces. It should look like this:\
+![image](https://github.com/user-attachments/assets/e33ce1e3-12d8-4bb8-941f-bc7b1c8f4dce)
 
-Navigate to `gmod_shader_guide/shaders` and open `example2_ps2x.hlsl`.\
+Now, navigate to `gmod_shader_guide/shaders` and open `example2_ps2x.hlsl`.\
 I have overcommented `example2_ps2x.hlsl`. Read that to get a basic grasp of the HLSL syntax. It is a lot like C or C++.\
 Try modifying the shader to do something different. Don't forget to recompile your shader!
 
@@ -143,7 +146,8 @@ Like I explained before, .vmt files control information about the material. In t
 
 # [Example 3] - Pixel Shader Constants
 Hopefully by now you have a basic grasp of the HLSL syntax. Now we're going to be looking at a slightly more complex shader.\
-(Type `shader_example 3` in console and take a quick look at what our shader produces)
+Type `shader_example 3` in console and take a quick look at what our shader produces. It should look like this:\
+![image](https://github.com/user-attachments/assets/1a04f2e5-2de7-40e1-bec3-67dd46aea5b9)
 
 In this shader, we are sampling from a texture, and inputting CurTime to make it appear animated.
 
@@ -155,7 +159,7 @@ Unfortunately, screenspace_general has a limited number of global constants we a
 In this example, I am using input `$c0_x`, which takes a float to give CurTime to the shader.
 
 Now, lets check the code behind this shader..\
-Open `example3.vmt` and take a look at its parameters. Try editing the basetexture and seeing what changes!
+Open `example3.vmt` and take a look at its parameters. Try modifying the basetexture to something like `hunter/myplastic` or `phoenix_storms/wood` and seeing what changes!
 
 Note how, in the .vmt, I define `$c0_y` despite it not being used in the shader HLSL.\
 After playing around with the vmt, open `example3_ps2x.hlsl` and try to understand its code.\
