@@ -1,8 +1,9 @@
 # The Comprehensive GMod Shader Guide
-Hello! Welcome to my GMod Shader Guide!\
+Hello! Welcome to my GMod Shader Guide!
 
-It consists of everything I have learned making GMod shaders over the past few years. I aim to teach anyone new with shaders, specifically shaders within SourceEngine and GMod.\
-This guide ASSUMES you know the basics of how to code, including syntax, variables, and control flow.\
+It consists of everything I have learned making GMod shaders over the past few years. I aim to teach anyone new with shaders, specifically shaders within SourceEngine and GMod.
+
+This guide ASSUMES you know the basics of how to code, including syntax, variables, and control flow.
 
 If you do not know how to code I suggest doing a couple GLua projects and then coming back to this guide, as it is quite technical and a bit complex.
 
