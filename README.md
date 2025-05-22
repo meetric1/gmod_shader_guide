@@ -126,6 +126,9 @@ Like I explained before, .vmt files control information about the material. In t
 > [!NOTE]
 > If you are trying to update the shader ingame, ensure the compiled .vcs shader exists before saving changes to the .vmt
 
+> [!NOTE]
+> You might have noticed the `$ignorez 1` flag in the .vmt, this is because all screenspace shaders *need* this flag to work properly! Otherwise they might not render
+
 # [Example 3] - Pixel Shader Constants
 
 # [Example 4] - GPU Control Flow
