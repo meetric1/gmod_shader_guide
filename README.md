@@ -35,8 +35,8 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 You may be asking to yourself, `what is a shader and why should I care?`, well have you ever wondered how games are able to display such complex geometry and graphics? At some point in any game you play, there is code running on your [GPU](https://en.wikipedia.org/wiki/Graphics_processing_unit) that determines the color of every pixel displayed on your screen. Yes, you heard that right, for *every* pixel there is code running to determine its color, in real time. Thats what we'll be writing today.
 
 Here are some examples of some cool shaders:\
-**GMod Grass shader:**\
-![ezgif-6bf72fdcc49f1b](https://github.com/user-attachments/assets/66115f5f-2375-4429-a73d-253d35cda73d)\\
+**GMod Grass shader (Me):**\
+![ezgif-6bf72fdcc49f1b](https://github.com/user-attachments/assets/66115f5f-2375-4429-a73d-253d35cda73d)\
 **GMod Ground Displacement (Evgeny Akabenko):**\
 ![image](https://github.com/user-attachments/assets/596fe2db-c05d-4a37-b293-a2764caeb349)\
 **GMod Volumetric Clouds (Evgeny Akabenko):**\
