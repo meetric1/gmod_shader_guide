@@ -63,7 +63,7 @@ Source engine has a custom extension named `vmt`. This basically controls aspect
 In this case, we are taking advantage of a shader named screenspace_general, which lets us set custom vertex and pixel shaders.
 
 Despite its name, screenspace_general is not actually screenspace (as of the 2015 CS:S branch), and was likely used for testing.\
-See [Example 9]() for more specific information regarding screenspace_general
+See [Example 9] for more specific information regarding screenspace_general
 
 More info on .vmt's:\
 https://developer.valvesoftware.com/wiki/VMT 
@@ -108,7 +108,7 @@ If the square is red, the shader hasn't overwritten anything and you've probably
 > Editing (or recompiling) a shader without modifying the .vmt requires a game restart. 
 > Until you wanna start editing .vmt's I suggest just restarting the game as it is the easiest method. Launching the game with `-noworkshop` helps a lot with load times.
 
-> [!CAUTION]
+> [!TIP]
 > When you eventually start developing your own shaders, make sure to give them a distinct name, or you might get conflictions
 
 # [Example 2] - Pixel Shaders
