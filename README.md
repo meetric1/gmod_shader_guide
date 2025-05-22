@@ -47,11 +47,13 @@ Here are some examples of some cool shaders:\
 # The Shader Pipeline
 All graphics APIs, have something called a [Graphics Pipeline](https://en.wikipedia.org/wiki/Graphics_pipeline). This is a generalized, fixed set of stages which function to transform a 3 dimmensional scene, into something the screen can display.
 
-The Graphics Pipeline (IMAGE OF):
+The Graphics Pipeline:\
+![graphics_pipeline](https://github.com/user-attachments/assets/5683817d-1d03-448d-b019-3870d5a9852d)\
+<sup><sub>(image from [Vulkan Tutorial](https://vulkan-tutorial.com/Drawing_a_triangle/Graphics_pipeline_basics/Introduction))<sup><sub>
 
-This guide won't go into the specifics of the math, all we're going to cover are writing and compiling the pixel and vertex shaders. All you need to know right now, is:
+This guide won't go into the specifics of the math. For now, all you need to know is:
 1. Every model that you see is made up of triangles and vertices (See [mat_wireframe](https://developer.valvesoftware.com/wiki/Mat_wireframe) for a visualization within Source).
-2. Each vertice gets sent to the GPU, to be transformed onto the screen. This transformation is controlled within the Vertex shader.
+2. Each vertice gets sent to the GPU, to be transformed onto the screen. This transformation will be controlled within your vertex shader.
 3. The pixel shader then runs after that and fills in the [rasterized](https://en.wikipedia.org/wiki/Rasterisation) pixels with a color, controlled by your shader
 
 # screenspace_general
@@ -60,20 +62,24 @@ This guide won't go into the specifics of the math, all we're going to cover are
 Source engine has a custom extension named `vmt`. This basically controls aspects (flags) of a custom material.\
 In this case, we are taking advantage of a shader named screenspace_general, which lets us set custom vertex and pixel shaders.
 
-Despite its name, screenspace_general is not actually screenspace (as of the 2015 CS branch), and was likely used for testing.
+Despite its name, screenspace_general is not actually screenspace (as of the 2015 CS:S branch), and was likely used for testing.\
+See [Example 9]() for more specific information regarding screenspace_general
 
-See [Example 9]() for more specific information on screenspace_general
+More info on .vmt's:\
+https://developer.valvesoftware.com/wiki/VMT 
 
-More info on .vmt's: https://developer.valvesoftware.com/wiki/VMT \
-More info on screenspace_general: https://developer.valvesoftware.com/wiki/Screenspace_General \
-Source code of the shader (Note: NOT the same as the Source SDK 2013 screenspace_general!): https://github.com/sr2echa/CSGO-Source-Code/blob/master/cstrike15_src/materialsystem/stdshaders/screenspace_general.cpp
+More info on screenspace_general:\
+https://developer.valvesoftware.com/wiki/Screenspace_General 
+
+Source code of the shader (From CS:S 2015):\
+https://github.com/sr2echa/CSGO-Source-Code/blob/master/cstrike15_src/materialsystem/stdshaders/screenspace_general.cpp
 
 # Getting Started
 To start out, clone this repo into your `GarrysMod/garrysmod/addon` folder, there are 11 examples for you to look at and follow ingame.\
 Each example will teach you about a specific topic about shaders. My hope is that by reading this guide and visualizing the shader you can get a better grasp of what is going on.
 
-> [!WARNING]
-> PLEASE LOAD INTO `gm_construct`, AS ITS ORIGIN IS RELATIVELY CLOSE TO YOUR SPAWN POINT. IT IS THE MAP THESE VISUALS ARE BASED AROUND.
+> [!NOTE]
+> PLEASE LOAD INTO `gm_construct`, AS ITS ORIGIN IS RELATIVELY CLOSE TO THE SPAWN POINT. IT IS THE MAP THESE VISUALS ARE BASED AROUND.
 
 Once loaded in, you should be able to type `shader_example 1` in your console to view the first shader. (It should just be a red square) It isn't very interesting but we'll work on making some cool shaders.
 (IMAGE OF EXAMPLE_SHADER1)
