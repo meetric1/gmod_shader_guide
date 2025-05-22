@@ -113,11 +113,11 @@ If the square is red, the shader hasn't overwritten anything and you've probably
 
 # [Example 2] - Pixel Shaders
 Pixel (also known as Fragment) shaders run a section of code for every pixel on the screen.\
-In the first example, we learned how to compile a basic shader, but now we're going to try modifying one.\
+In the first example, we learned how to compile a basic shader, but now we're going to try modifying one.
 
 Navigate to `gmod_shader_guide/shaders` and open `example2_ps2x.hlsl` (preferably so both this guide, and the code are in view).\
 I have overcommented `example2_ps2x.hlsl`. Read that to get a basic grasp of the HLSL syntax. It is a lot like C or C++.\
-Feel free to try modifying the shader to do something different. Don't forget to recompile your shader!\
+Feel free to try modifying the shader to do something different. Don't forget to recompile your shader!
 
 If you would like to try changing the shader ingame, compile your shader and then navigate to `gmod_shader_guide/shaders/fxc` and change `example2_ps20b.vcs` to something like `example2a_ps20b.vcs`.\
 Now, navigate to `gmod_shader_guide/materials/gmod_shader_guide` and open `example2.vmt` in any text editor (notepad or Visual Studio Code works fine)\
