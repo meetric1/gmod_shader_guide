@@ -14,12 +14,12 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 > This guide likely does not cover *everything* about gmod shaders and HLSL, but I will try my best to include everything that is relevant. If you discover something new, **PLEASE** share it! Feel free to create an issue or make a pull request and add your own shader examples.
 
 # Table of Contents
-- [What is a Shader?](#what_is_a_shader?)
-- [The Shader Pipeline](#the_shader_pipeline)
+- [What is a Shader?](#what-is-a-shader)
+- [The Shader Pipeline](#the-shader-pipeline)
 - [screenspace_general](#screenspace_general)
-- [Getting Started](#getting_started)
-- [[Example 1] - Your First Shader](#[example_1]_-_your_first_shader)
-- [[Example 2] - Pixel Shaders](#[example_2]_-_pixel_shaders)
+- [Getting Started](#getting-started)
+- [[Example 1] - Your First Shader](#example-1---your-first-shader)
+- [[Example 2] - Pixel Shaders](#example-2---pixel-shaders)
 - [[Example 3] - pixel shader constants]
 - [[Example 4] - gpu control flow]
 - [[Example 5] - rendertargets]
