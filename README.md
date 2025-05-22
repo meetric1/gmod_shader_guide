@@ -121,7 +121,7 @@ Feel free to try modifying the shader to do something different. Don't forget to
 
 If you would like to try changing the shader ingame, compile your shader and then navigate to `gmod_shader_guide/shaders/fxc` and change `example2_ps20b.vcs` to something like `example2a_ps20b.vcs`.\
 Now, navigate to `gmod_shader_guide/materials/gmod_shader_guide` and open `example2.vmt` in any text editor (notepad or Visual Studio Code works fine)\
-Like I explained before, .vmt files control information about the material. In this case, we are interested in the `$pixshader` flag which controls the pixel shader the material uses. Change it to whatever you renamed the shader to, so the line looks something like `$pixshader "example2a_ps2x"`, save it, and view your changes.
+Like I explained before, .vmt files control information about the material. In this case, we are interested in the `$pixshader` flag which controls the pixel shader the material uses. Change it to whatever you renamed the shader to, so the line looks something like `$pixshader "example2a_ps20b"`, save it, and view your changes.
 
 > [!NOTE]
 > If you are trying to update the shader ingame, ensure the compiled .vcs shader exists before saving changes to the .vmt
@@ -135,6 +135,6 @@ No loops with sm2x, sm30 supports but linux only
 # We're done!
 If you made it here, you (hopefully) have read and understand everything there is to know (or atleast, that I know) about GMod shaders.\
 Please note that this is NOT a comprehensive guide on everything HLSL! There is still plenty more to learn, but this is definitely a good starting point.\
-Feel free to ask questions (or concerns) in the Issues tab. I will answer them best I can :)\
+Feel free to ask questions (or concerns) in the Issues tab. I will answer them best I can :)
 
 __Happy shading!__

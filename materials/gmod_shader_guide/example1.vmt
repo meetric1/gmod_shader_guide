@@ -1,5 +1,5 @@
 screenspace_general
 {
-	$pixshader "example1_ps2x"
+	$pixshader "example1_ps20b"
 	$ignorez 1
 }
