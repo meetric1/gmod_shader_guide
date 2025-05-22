@@ -34,11 +34,15 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 # What is a Shader?
 You may be asking to yourself, `what is a shader and why should I care?`, well have you ever wondered how games are able to display such complex geometry and graphics? At some point in any game you play, there is code running on your [GPU](https://en.wikipedia.org/wiki/Graphics_processing_unit) that determines the color of every pixel displayed on your screen. Yes, you heard that right, for *every* pixel there is code running to determine its color, in real time. Thats what we'll be writing today.
 
-Here are some examples of some cool shaders (IMAGE OF):
-GMod Grass shader (Me):
-GMod Ground Displacement (Evgeny Akabenko):
-GMod Volumetric Clouds (Evgeny Akabenko):
-Half Life: Alyx liquid shader (Valve):
+Here are some examples of some cool shaders:\
+**GMod Grass shader:**\
+![ezgif-6cc1d64c834c1c](https://github.com/user-attachments/assets/f2591375-7e00-41e9-a924-20f3f80d6818)\
+**GMod Ground Displacement (Evgeny Akabenko):**\
+![image](https://github.com/user-attachments/assets/596fe2db-c05d-4a37-b293-a2764caeb349)\
+**GMod Volumetric Clouds (Evgeny Akabenko):**\
+![Untitled](https://github.com/user-attachments/assets/0aae45f1-9d7d-49b3-acc3-df3ae7ed8fcd)\
+**Half Life: Alyx liquid shader (Valve):**\
+![ebd09ce02b4b9b7c3d59eb442ee6afe22f20d291](https://github.com/user-attachments/assets/0339658e-a9ae-4b0a-8aff-c0f55a11ae46)\
 
 # The Shader Pipeline
 All graphics APIs, have something called a [Graphics Pipeline](https://en.wikipedia.org/wiki/Graphics_pipeline). This is a generalized, fixed set of stages which function to transform a 3 dimmensional scene, into something the screen can display.
