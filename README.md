@@ -1,14 +1,16 @@
 # The Comprehensive GMod Shader Guide
 Hello! Welcome to my GMod Shader Guide!\
-It consists of everything I have learned making GMod shaders over the past few years.\
-I aim to teach anyone new with shaders, specifically shaders within SourceEngine and GMod.\
-This guide ASSUMES you know the basics of how to code, including syntax, variables, and control flow. If you do not know how to code I suggest doing a couple GLua projects and then coming back to this guide, as it is quite technical and a bit complex.\
+
+It consists of everything I have learned making GMod shaders over the past few years. I aim to teach anyone new with shaders, specifically shaders within SourceEngine and GMod.\
+This guide ASSUMES you know the basics of how to code, including syntax, variables, and control flow.\
+
+If you do not know how to code I suggest doing a couple GLua projects and then coming back to this guide, as it is quite technical and a bit complex.
 
 > [!NOTE]
-> Source Engine (the game engine GMod uses), runs on DirectX9, which is *very* old, and there are many modern graphics features that do not exist. This means we will not be discussing things like tessilation shaders, mesh shaders, compute shaders, tensor shaders, and other modern shader types.\
+> Source Engine (the game engine GMod uses), runs on DirectX9, which is *very* old, and there are many modern graphics features that do not exist. This means we will not be discussing things like tessilation shaders, mesh shaders, compute shaders, tensor shaders, and other modern shader types.
 
 > [!NOTE]
-> This guide likely does not cover *everything* about gmod shaders / HLSL, but I will try my best to include everything that is relevant. If you discover something new, PLEASE share it! Feel free to create an issue or make a pull request and add your own shader examples.\
+> This guide likely does not cover *everything* about gmod shaders and HLSL, but I will try my best to include everything that is relevant. If you discover something new, PLEASE share it! Feel free to create an issue or make a pull request and add your own shader examples.
 
 # Table of Contents
 - [What is a Shader?](#what_is_a_shader?)
@@ -38,7 +40,7 @@ GMod Volumetric Clouds (Evgeny Akabenko):
 Half Life: Alyx liquid shader (Valve):
 
 # The Shader Pipeline
-All graphics APIs, have something called a [Graphics Pipeline](https://en.wikipedia.org/wiki/Graphics_pipeline). This is a generalized, fixed set of stages which function to transform 3 dimmensional scene, into something the screen can display.\
+All graphics APIs, have something called a [Graphics Pipeline](https://en.wikipedia.org/wiki/Graphics_pipeline). This is a generalized, fixed set of stages which function to transform a 3 dimmensional scene, into something the screen can display.
 
 The Graphics Pipeline (IMAGE OF):
 
@@ -48,42 +50,47 @@ This guide won't go into the specifics of the math, all we're going to cover are
 3. The pixel shader then runs after that and fills in the [rasterized](https://en.wikipedia.org/wiki/Rasterisation) pixels with a color, controlled by your shader
 
 # screenspace_general
-(Feel free to skip this section if you already know about how .vmt's work)\
+(Feel free to skip this section if you already know about how .vmt's work)
+
 Source engine has a custom extension named `vmt`. This basically controls aspects (flags) of a custom material.\
-In this case, we are taking advantage of a shader named screenspace_general, which lets us set custom vertex and pixel shaders.\
-Despite its name, screenspace_general is not actually screenspace (as of the 2015 CS branch), and was likely used for testing.\
+In this case, we are taking advantage of a shader named screenspace_general, which lets us set custom vertex and pixel shaders.
 
-See [[Example 9] - shaders on models]() for more specific information on screenspace_general
+Despite its name, screenspace_general is not actually screenspace (as of the 2015 CS branch), and was likely used for testing.
 
-More info on .vmt's: https://developer.valvesoftware.com/wiki/VMT
-More info on screenspace_general: https://developer.valvesoftware.com/wiki/Screenspace_General
+See [Example 9]() for more specific information on screenspace_general
+
+More info on .vmt's: https://developer.valvesoftware.com/wiki/VMT \
+More info on screenspace_general: https://developer.valvesoftware.com/wiki/Screenspace_General \
 Source code of the shader (Note: NOT the same as the Source SDK 2013 screenspace_general!): https://github.com/sr2echa/CSGO-Source-Code/blob/master/cstrike15_src/materialsystem/stdshaders/screenspace_general.cpp
 
 # Getting Started
 To start out, clone this repo into your `GarrysMod/garrysmod/addon` folder, there are 11 examples for you to look at and follow ingame.\
-Each example will teach you about a specific topic about shaders. My hope is that by reading this guide and visualizing the shader you can get a better grasp of what is going on.\
+Each example will teach you about a specific topic about shaders. My hope is that by reading this guide and visualizing the shader you can get a better grasp of what is going on.
+
 > [!WARNING]
-> PLEASE LOAD INTO `gm_construct`, AS ITS ORIGIN IS RELATIVELY CLOSE TO YOUR SPAWN POINT. IT IS THE MAP THESE VISUALS ARE BASED AROUND.\
+> PLEASE LOAD INTO `gm_construct`, AS ITS ORIGIN IS RELATIVELY CLOSE TO YOUR SPAWN POINT. IT IS THE MAP THESE VISUALS ARE BASED AROUND.
 
 Once loaded in, you should be able to type `shader_example 1` in your console to view the first shader. (It should just be a red square) It isn't very interesting but we'll work on making some cool shaders.
 (IMAGE OF EXAMPLE_SHADER1)
 
 # [Example 1] - Your First Shader
-In order to make a shader, we will need something to compile it. For this guide I have decided to use https://github.com/SCell555/ShaderCompile, as it supports 64 bit and is a hell of a lot easier than setting up the normal sourceengine shader compiler. I am also using an edited version of [ficool2's](https://github.com/ficool2/sdk_screenspace_shaders) `build_single_shader.bat`.\
+In order to make a shader, we will need something to compile it. For this guide I have decided to use [ShaderCompile](https://github.com/SCell555/ShaderCompile), as it supports 64 bit and is a hell of a lot easier than setting up the normal sourceengine shader compiler.\
+I am also using an edited version of [ficool2's](https://github.com/ficool2/sdk_screenspace_shaders) `build_single_shader.bat`.
 
 Please close GMod and navigate inside this repo to `gmod_shader_guide/shaders` and find `example1_ps2x.hlsl`.\
 For reference, the name of a shader is very important, so lets split it into 4 parts.
 1. `example1` - The name of the shader, this can be anything you want.
-2. `ps` - Stands for Pixel Shader, it can also be `vs` (Can you guess what it stands for?)
+2. `ps` - Stands for Pixel Shader, can also be `vs` (Can you guess what it stands for?)
 3. `2x` - The shader version. I will be using `2x`, as it is the most supported. `30` is also valid and has less restrictions, but does not work on native Linux
 4. `.hlsl` - The file extension, all source shaders use hlsl
 
-You must ENSURE that the name stays exactly in this format, or the tools provided won't work.\
+You must ENSURE that the name stays exactly in this format, or the tools provided won't work.
 
 Once you are done, drag it on top of `build_single_shader.bat` and it should compile and automatically put the shader into `fxc`, which is where GMod shaders are loaded from.\
-Compiled shaders are `.vcs` files, which stands for `Valve Compiled Shader`.\
+Compiled shaders are `.vcs` files, which stands for `Valve Compiled Shader`.
 
-Next time you go in game, you should see a bright green square at the top left of your screen. If you do, congratulations! You have successfully compiled your first shader.\
+Next time you go in game, you should see a bright green square at the top left of your screen. If you do, congratulations! You have successfully compiled your first shader.
+
 If the square is red, the shader hasn't overwritten anything and you've probably missed a step. Try restarting your game or checking for compile errors.
 
 > [!NOTE]
@@ -109,6 +116,9 @@ Like I explained before, .vmt files control information about the material. In t
 > If you are trying to update the shader ingame, ensure the compiled .vcs shader exists before saving changes to the .vmt
 
 # [Example 3] - Pixel Shader Constants
+
+# [Example 4] - GPU Control Flow
+No loops with sm2x, sm30 supports but linux only
 
 
 # We're done!
