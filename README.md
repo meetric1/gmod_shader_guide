@@ -3,7 +3,7 @@ Hello! Welcome to my GMod Shader Guide!
 
 It consists of everything I have learned making GMod shaders over the past few years. I aim to teach anyone new with shaders, specifically shaders within SourceEngine and GMod.
 
-This guide ASSUMES you know the basics of how to code, including syntax, variables, and control flow.
+This guide **ASSUMES** you know the basics of how to code, including syntax, variables, and control flow.
 
 If you do not know how to code I suggest doing a couple GLua projects and then coming back to this guide, as it is quite technical and a bit complex.
 
@@ -11,7 +11,7 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 > Source Engine (the game engine GMod uses), runs on DirectX9, which is *very* old, and there are many modern graphics features that do not exist. This means we will not be discussing things like tessilation shaders, mesh shaders, compute shaders, tensor shaders, and other modern shader types.
 
 > [!NOTE]
-> This guide likely does not cover *everything* about gmod shaders and HLSL, but I will try my best to include everything that is relevant. If you discover something new, PLEASE share it! Feel free to create an issue or make a pull request and add your own shader examples.
+> This guide likely does not cover *everything* about gmod shaders and HLSL, but I will try my best to include everything that is relevant. If you discover something new, **PLEASE** share it! Feel free to create an issue or make a pull request and add your own shader examples.
 
 # Table of Contents
 - [What is a Shader?](#what_is_a_shader?)
@@ -79,9 +79,9 @@ To start out, clone this repo into your `GarrysMod/garrysmod/addon` folder, ther
 Each example will teach you about a specific topic about shaders. My hope is that by reading this guide and visualizing the shader you can get a better grasp of what is going on.
 
 > [!NOTE]
-> PLEASE LOAD INTO `gm_construct`, AS ITS ORIGIN IS RELATIVELY CLOSE TO THE SPAWN POINT. IT IS THE MAP THESE VISUALS ARE BASED AROUND.
+> **PLEASE LOAD INTO** `gm_construct`, **AS ITS ORIGIN IS RELATIVELY CLOSE TO THE SPAWN POINT. IT IS THE MAP THESE VISUALS ARE BASED AROUND**.
 
-Once loaded in, you should be able to type `shader_example 1` in your console to view the first shader. (It should just be a red square) It isn't very interesting but we'll work on making some cool shaders.
+Once loaded in, you should be able to type `shader_example 1` in your console to view the first shader. (It should just be a red rectangle on your screen) It isn't very interesting but we'll work on making some cool shaders.
 (IMAGE OF EXAMPLE_SHADER1)
 
 # [Example 1] - Your First Shader
