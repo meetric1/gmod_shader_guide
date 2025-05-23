@@ -37,8 +37,8 @@ float3 blur_3x3(PS_INPUT frag) {
 float3 operation_1(PS_INPUT frag) {
 	float3 final_color = float3(0.0, 0.0, 0.0);
 	
-	// Blur pixels in a checkerboard pattern
-	if ((frag.uv.x * 1000.0 + frag.uv.y * 1000.0) % 2 == 1) {
+	// Blurs pixels in a checkerboard pattern
+	if (((floor(frag.uv.x * 100.0) % 2) + (floor(frag.uv.y * 100.0) % 2)) % 2 == 1) {
 		final_color = blur_3x3(frag);
 	} else {
 		final_color = float3(1.0, 0.0, 1.0); // bright pink
