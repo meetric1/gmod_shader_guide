@@ -32,13 +32,13 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [[Example 3] - Pixel Shader Constants](#example-3---pixel-shader-constants)
 - [[Example 4] - gpu control flow]
 - [[Example 5] - rendertargets]
-- [[Example 6] - volumetric textures]
-- [[Example 7] - vertex shaders]
-- [[Example 8] - vertex shader constants]
-- [[Example 9] - the depth buffer]
-- [[Example 10] - shaders on models]
-- [[Example 11] - imeshes]
-- [[Example 12] - geometry shaders]
+- [[Example 6] - vertex shaders]
+- [[Example 7] - vertex shader constants]
+- [[Example 8] - the depth buffer]
+- [[Example 9] - shaders on models]
+- [[Example 10] - imeshes]
+- [[Example 11] - geometry shaders]
+- [[Example 12] - volume textures]
 - [We're Done!](#we're_done!)
 
 # What is a Shader?
@@ -179,9 +179,55 @@ Try doing something with the unused `$c0_y` parameter!
 > There are some more, undocumented pixel shader constants that are automatically set by Source Engine. They can be viewed [here](https://github.com/ficool2/sdk_screenspace_shaders/blob/94071cb6d464a7c04ced726770ca87a7ecd5d9a1/shadersrc/common.hlsl#L29).\
 > Most aren't too useful, but someone might find them handy one day
 
-# [Example 4] - GPU Control Flow
+# [Example 4] - GPU Architecture
+<!--
 gpus are good at floats
 No loops with sm2x, sm30 supports but linux only
+-->
+
+Now that we know the basic syntax and general control of pixel shaders, I feel like its a good time to start looking at GPU architecture and control flow. It is important for you to think about GPUs as an entirely different computer, because in reality, they are. GPUs have their own processor, RAM, motherboard, firmware, and even cooling. 
+
+GPUs operate *very* different compared to CPUs, so be prepared to think a bit differently than normal.
+
+### Architecture
+
+GPU Architecture is meant for very specific set of instructions for optimial speed. GPUs are *really* good at floating point operations. Infact they are so good, a modern GPU (in 2025) can do 15 TFLOPS (or 15,000,000,000,000) floating point operations per second. That is *fast*. 
+
+Unfortunately however, that is pretty much all they're good at. GPUs are *ONLY* good at fast floating point (and integer) arithmetic. This makes them fast, but limited (think of a CPU, but dumber). Shader model 20b (the one we are using) doesn't even support doubles. If you do somehow get doubles working though, I would advise against it, as they are extremely slow and not what the GPU architecture is meant for.
+
+### Control Flow
+
+Lets move on to control flow. In languages on the CPU (Lua, C++, etc), an `if` statement is not a big deal. Guarding and preventing execution of code is usually a good thing for performance.
+
+Although counterintuitive, on the GPU, this is not the case. You should avoid `if` statements when possible. Its a bit complex to explain why, but I will try my best.
+
+On the GPU, a group of threads, called a warp, are launched in an area of the screen to compute things asynchronously. Due to the GPUs architecture, when a branch occurs, this divergence will cause the other non diverging threads to hang until the statement is finished executing, and vise versa. This reduces the parallelization of GPUs and effectively halves the performance in that block of code. Each side of the if statement must be computed synchronously.
+
+Here is an example:
+```
+if (CURRENT_THREAD.id <= 2) {
+    do_work_1();
+} else {
+    do_work_2();
+}
+```
+Lets pretend we have 1 warp with 4 threads, `1`, `2`, `3`, and `4`. When the GPU reaches the `if` statement, threads `3` and `4` are deactivated until threads `1` and `2` are finished with `do_work_1()`. Then, threads `1`, `2` are deactivated, and `3`, `4` are activated. Then, after `do_work_2()` finishes, all the threads are reactivated and the code continues execution. We have effectively doubled the amount of time it took to calculate `do_work_1()` and `do_work_2()`.
+
+Don't let this mislead you though. Using an `if` statement does not halve your performance. This is only true in the worst case scenario.\
+Remember that if all threads take the same branch, then efficiency is not lost.
+
+If none of that made sense, all you really need to know is that you should avoid code branching, where different possible paths of execution are possible. This includes but is not limited to `if` statements, `for` loops, and `while` loops.
+
+### Loops
+
+In this guide, We are using shader model 20b. Model 20b is interesting because (as far as I'm aware) all loops need to be [unrolled](https://en.wikipedia.org/wiki/Loop_unrolling), and cannot be dynamic.
+
+Shader model 30 does however support dynamic loops, but is not supported on Linux systems.
+
+To continue, open navigate to `gmod_shader_guide/shaders` and take a look at `example4_ps2x.hlsl`
+
+Please note that this is *my* understanding of how GPUs work. If I am butchering any part of this please let me know!
+
 
 # [Example 5] - Rendertargets
 
@@ -200,6 +246,16 @@ msaa fucking with depth
 # [Example 11] - Meshes
 
 # [Example 12] - Geometry Shaders
+
+# Shader Model Differences
+Shader Model 30:
+- Supports Dynamic Loops
+- More avaliable instructions
+- VPOS input in pixel shader
+- Not supported on linux
+
+Shader Model 20b:
+- Supported on Linux
 
 # We're done!
 If you made it here, you (hopefully) have read and understand everything there is to know (or atleast, that I know) about GMod shaders.\

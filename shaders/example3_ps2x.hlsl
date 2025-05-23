@@ -13,7 +13,6 @@ float4 C2 : register(c2); // Holds material flags $c2_x, $c2_y, $c2_z, and $c2_w
 
 // Our default input structure
 struct PS_INPUT {
-	float2 pixel : VPOS;		// Location on the screen in pixel space
 	float2 uv    : TEXCOORD0;	// Texture coordinates
 };
 

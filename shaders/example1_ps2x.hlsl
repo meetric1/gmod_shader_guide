@@ -1,7 +1,6 @@
 // Simple shader that returns bright green
 // As of right now we're just trying to compile this shader, though feel free to take a look
 struct PS_INPUT {
-	float2 p  : VPOS;
 	float2 uv : TEXCOORD0;
 };
 
