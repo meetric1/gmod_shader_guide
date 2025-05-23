@@ -1,5 +1,12 @@
 # HELLO! IF YOU ARE READING THIS, THE GUIDE IS CURRENTLY WIP AND UNFINISHED, DON'T JUDGE IT TOO HARSHLY YET
-
+#
+#
+#
+#
+#
+#
+#
+#
 # The Comprehensive GMod Shader Guide
 Hello! Welcome to my GMod Shader Guide!
 
