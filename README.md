@@ -23,12 +23,13 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [[Example 3] - Pixel Shader Constants](#example-3---pixel-shader-constants)
 - [[Example 4] - gpu control flow]
 - [[Example 5] - rendertargets]
-- [[Example 6] - vertex shaders]
-- [[Example 7] - vertex shader constants]
-- [[Example 8] - the depth buffer]
-- [[Example 9] - shaders on models]
-- [[Example 10] - imeshes]
-- [[Example 11] - geometry shaders]
+- [[Example 6] - volumetric textures]
+- [[Example 7] - vertex shaders]
+- [[Example 8] - vertex shader constants]
+- [[Example 9] - the depth buffer]
+- [[Example 10] - shaders on models]
+- [[Example 11] - imeshes]
+- [[Example 12] - geometry shaders]
 - [We're Done!](#we're_done!)
 
 # What is a Shader?
@@ -174,10 +175,22 @@ gpus are good at floats
 No loops with sm2x, sm30 supports but linux only
 
 # [Example 5] - Rendertargets
-volumetric textures (prolly need another example for this one)
 
-# [Example 6] - Vertex Shader Constants
+# [Example 6] - Volumetric Textures
+
+# [Example 7] - Vertex Shaders
+
+# [Example 8] - Vertex Shader Constants
 explain #include and how it also works in pixel shader
+
+# [Example 9] - The Depth Buffer
+msaa fucking with depth
+
+# [Example 10] - Shaders on Models
+
+# [Example 11] - Meshes
+
+# [Example 12] - Geometry Shaders
 
 # We're done!
 If you made it here, you (hopefully) have read and understand everything there is to know (or atleast, that I know) about GMod shaders.\
