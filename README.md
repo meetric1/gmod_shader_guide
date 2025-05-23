@@ -30,8 +30,8 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [[Example 1] - Your First Shader](#example-1---your-first-shader)
 - [[Example 2] - Pixel Shaders](#example-2---pixel-shaders)
 - [[Example 3] - Pixel Shader Constants](#example-3---pixel-shader-constants)
-- [[Example 4] - gpu control flow]
-- [[Example 5] - rendertargets]
+- [[Example 4] - GPU Architecture](#example-4---gpu-architecture)
+- [[Example 5] - Rendertargets](#example-5---rendertargets)
 - [[Example 6] - vertex shaders]
 - [[Example 7] - vertex shader constants]
 - [[Example 8] - the depth buffer]
@@ -180,11 +180,6 @@ Try doing something with the unused `$c0_y` parameter!
 > Most aren't too useful, but someone might find them handy one day
 
 # [Example 4] - GPU Architecture
-<!--
-gpus are good at floats
-No loops with sm2x, sm30 supports but linux only
--->
-
 Now that we know the basic syntax and general control of pixel shaders, I feel like its a good time to start looking at GPU architecture and control flow. It is important for you to think about GPUs as an entirely different computer, because in reality, they are. GPUs have their own processor, RAM, motherboard, firmware, and even cooling. 
 
 GPUs operate *very* different compared to CPUs, so be prepared to think a bit differently than normal.
@@ -225,8 +220,6 @@ In this guide, We are using shader model 20b. Model 20b is interesting because (
 Shader model 30 does however support dynamic loops, but is not supported on Linux systems.
 
 To continue, open navigate to `gmod_shader_guide/shaders` and take a look at `example4_ps2x.hlsl`
-
-Please note that this is *my* understanding of how GPUs work. If I am butchering any part of this please let me know!
 
 
 # [Example 5] - Rendertargets
