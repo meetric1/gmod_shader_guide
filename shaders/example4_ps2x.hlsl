@@ -7,7 +7,6 @@
 sampler BASETEXTURE : register(s0);
 
 // $c0_x = size of blur
-// $c0_y = blur type (3x3 or 5x5)
 float4 C0 : register(c0);
 
 // Our default input structure
@@ -60,7 +59,6 @@ float3 operation_2(PS_INPUT frag) {
 	return final_color;
 }
 
-// The section of code below will run for every pixel on the screen
 float4 main(PS_INPUT frag) : COLOR {
 	// Both operations blur half of the pixels on the texture, but one of them is much more efficent
 	// Which one do you think is more efficient? (Answer at bottom of shader)
