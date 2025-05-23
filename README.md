@@ -149,7 +149,7 @@ Hopefully by now you have a basic grasp of the HLSL syntax. Now we're going to b
 Type `shader_example 3` in console and take a quick look at what our shader produces. It should look like this:\
 ![image](https://github.com/user-attachments/assets/1a04f2e5-2de7-40e1-bec3-67dd46aea5b9)
 
-In this shader, we are sampling from a texture, and inputting CurTime to make it appear animated.
+In this shader, we are sampling from a texture, and inputting [CurTime](https://wiki.facepunch.com/gmod/Global.CurTime) to make it appear animated.
 
 As we already know, each .vmt represents a material, with a shader. What we're doing, is giving the material a global value which the shader can use. 
 In this case, we are inputting CurTime, which you can see in the `example3` function in `gmod_shader_guide/lua/autorun/client/shader_examples.lua`.
