@@ -25,13 +25,13 @@ VS_OUTPUT main(VS_INPUT vert) {
 	float3 world_pos;
 	SkinPosition(0, vert.vPos, 0, 0, world_pos);
 
-	// This isnt a required step, I just think its neat visually
+	// This ISN'T a required step, I just think its neat visually
 	// I am going to round each vertex on a grid of size 10
 	// Which kind of emulates that PS1 rounding effect
-	// What do you think will happen when this portion of code is commented out?
 	world_pos /= 10.0;
-	world_pos = floor(world_pos);	// Same as: world_pos = float3(world_pos.x, world_pos.y, world_pos.z);
+	world_pos = floor(world_pos);	// Same as: world_pos = float3(floor(world_pos.x), floor(world_pos.y), floor(world_pos.z));
 	world_pos *= 10.0;
+	// ↑ What do you think will happen if this portion of code is commented out?
 
 	// Takes our world space coordinate and projects it onto the screen
 	float4 proj_pos = mul(float4(world_pos, 1), cViewProj);
