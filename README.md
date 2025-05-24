@@ -31,9 +31,9 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [[Example 2] - Pixel Shaders](#example-2---pixel-shaders)
 - [[Example 3] - Pixel Shader Constants](#example-3---pixel-shader-constants)
 - [[Example 4] - GPU Architecture](#example-4---gpu-architecture)
-- [[Example 5] - Rendertargets](#example-5---rendertargets)
-- [[Example 6] - vertex shaders]
-- [[Example 7] - vertex shader constants]
+- [[Example 5] - vertex shaders](#example-5---vertex-shaders)
+- [[Example 6] - vertex shader constants]
+- [[Example 7] - Rendertargets]
 - [[Example 8] - the depth buffer]
 - [[Example 9] - shaders on models]
 - [[Example 10] - imeshes]
@@ -47,7 +47,7 @@ You may be asking to yourself, `what is a shader and why should I care?`, well h
 Here are some examples of some cool shaders:\
 **GMod Grass shader (Me):**\
 ![ezgif-6bf72fdcc49f1b](https://github.com/user-attachments/assets/66115f5f-2375-4429-a73d-253d35cda73d)\
-**GMod Ground Displacement (Evgeny Akabenko):**\
+**GMod Parallax Mapping (Evgeny Akabenko):**\
 ![image](https://github.com/user-attachments/assets/596fe2db-c05d-4a37-b293-a2764caeb349)\
 **GMod Volumetric Clouds (Evgeny Akabenko):**\
 ![Untitled](https://github.com/user-attachments/assets/0aae45f1-9d7d-49b3-acc3-df3ae7ed8fcd)\
@@ -91,9 +91,6 @@ https://github.com/sr2echa/CSGO-Source-Code/blob/master/cstrike15_src/materialsy
 To start out, clone this repo into your `GarrysMod/garrysmod/addon` folder, there are 11 examples for you to look at and follow ingame.\
 Each example will teach you about a specific topic about shaders. My hope is that by reading this guide and visualizing the shader you can get a better grasp of what is going on.
 
-> [!NOTE]
-> **PLEASE LOAD INTO** `gm_construct`, **AS ITS ORIGIN IS RELATIVELY CLOSE TO THE SPAWN POINT. IT IS THE MAP THESE VISUALS ARE BASED AROUND**.
-
 Once loaded in, you should be able to type `shader_example 1` in your console to view the first shader. (It should just be a red rectangle on your screen) It isn't very interesting but we'll work on making some cool shaders.
 
 # [Example 1] - Your First Shader
@@ -113,7 +110,7 @@ Now, for reference, the name of a shader is very important, so lets split it int
 
 You must ENSURE that the name stays exactly in this format, or the tools provided won't work.
 
-Now, we're going to overwrite an existing shader with this new one.\
+Now, we're going to overwrite an existing shader with a new one.\
 Drag `example1_ps2x.hlsl` on top of `build_single_shader.bat` and it should compile and automatically put the shader into `fxc`, which is where GMod shaders are loaded from.\
 Compiled shaders are `.vcs` files, which stands for `Valve Compiled Shader`.
 
@@ -122,7 +119,7 @@ Next time you go in game (don't forget to type `shader_example 1`!), you should 
 If the square is red, we haven't overwritten anything and you've probably missed a step. Try restarting your game or checking for compile errors.
 
 > [!NOTE]
-> Editing (or recompiling) a shader without modifying the .vmt requires a game restart. 
+> Editing (or recompiling) a shader without modifying the .vmt requires a game restart.\
 > Until you want to start editing .vmt's I suggest just restarting the game as it is the easiest method. Launching the game with `-noworkshop` helps a lot with load times.
 
 > [!TIP]
@@ -200,18 +197,18 @@ On the GPU, a group of threads, called a warp, are launched in an area of the sc
 
 Here is an example:
 ```
-if (CURRENT_THREAD.id <= 2) {
+if (PIXEL.x <= 2) {
     do_work_1();
 } else {
     do_work_2();
 }
 ```
-Lets pretend we have 1 warp with 4 threads, `1`, `2`, `3`, and `4`. When the GPU reaches the `if` statement, threads `3` and `4` are deactivated until threads `1` and `2` are finished with `do_work_1()`. Then, threads `1`, `2` are deactivated, and `3`, `4` are activated. Then, after `do_work_2()` finishes, all the threads are reactivated and the code continues execution. We have effectively doubled the amount of time it took to calculate `do_work_1()` and `do_work_2()`.
+Lets pretend we have 1 warp with 4 threads named `0`, `1`, `2`, and `3`. Pretend we calculating a row of 4 pixels. When the GPU reaches the `if` statement, threads `2` and `3` are deactivated until threads `0` and `1` are finished with `do_work_1()`. Then, threads `0`, `1` are deactivated, and `2`, `3` are activated. Then, after `do_work_2()` finishes, all the threads are reactivated and the code continues execution. We have effectively doubled the amount of time it took to calculate `do_work_1()` and `do_work_2()`.
 
-Don't let this mislead you though. Using an `if` statement does not halve your performance. This is only true in the worst case scenario.\
-Remember that if all threads take the same branch, then efficiency is not lost.
+Don't let this mislead you though. Using an `if` statement does not always halve your performance. This is only true in the worst case scenario.\
+Remember that if all threads take the same branch, efficiency is not lost.
 
-If none of that made sense, all you really need to know is that you should avoid code branching, where different possible paths of execution are possible. This includes but is not limited to `if` statements, `for` loops, and `while` loops.
+If none of that made sense, all you really need to know is that you should avoid code branching, wherever possible. This includes (but is not limited to): `if-else`, `continue`, and `break` statements.
 
 ### Loops
 
@@ -219,26 +216,56 @@ In this guide, We are using shader model 20b. Model 20b is interesting because (
 
 Shader model 30 does however support dynamic loops, but is not supported on Linux systems.
 
-To continue, open navigate to `gmod_shader_guide/shaders` and take a look at `example4_ps2x.hlsl`
+To continue, navigate to `gmod_shader_guide/shaders` and take a look at `example4_ps2x.hlsl`
 
+# [Example 5] - Vertex Shaders
 
-# [Example 5] - Rendertargets
+> [!NOTE]
+> **FOR THIS EXAMPLE, PLEASE LOAD INTO** `gm_construct` **AS IT IS THE MAP THESE VISUALS ARE BASED AROUND**.
 
-# [Example 6] - Volumetric Textures
+Now that we have the basics on everything pixel shader related, it's time to jump into vertex shaders.
 
-# [Example 7] - Vertex Shaders
+Like I explained earlier in [The Shader Pipeline](#the-shader-pipeline), vertex shaders are the section of code which transforms 3D coordinates onto the screen.\
+As you'd expect, vertex shaders run shader code for every vertex.
 
-# [Example 8] - Vertex Shader Constants
-explain #include and how it also works in pixel shader
+In this vertex shader example, we are going to be including some Valve helper functions. The source code is in the `.h` files you might have seen earlier.\
+These files include a bunch of useful functions and definitions for us to use. A good example is `cEyePos`, which defines the current eye position of the player (as you can imagine, this can be useful in many types of shaders).
 
-# [Example 9] - The Depth Buffer
+> [!TIP]
+> I have edited `common_ps_fxc.h` so cEyePos is also possible to use with the pixel shader.
+
+Now, type `shader_example 5` in console and take a quick look at what this shader currently produces. It should look like this:\
+
+Then, take a look at `example5_ps2x.hlsl`. Feel free to make your own changes.
+
+> [!NOTE]
+> The vertex shader has warnings during compilation. This is normal and is the fault of valves API.\
+> It probably can be fixed by editing `common_vs_fxc.h` (file from valve) but I didn't bother
+
+> [!TIP]
+> If you look at the vmt, you will notice `$cull 1`. This is because by default, the shader renders on both sides. Set it to 0 and see what happens!
+
+# [Example 6] - Vertex Shader Constants
+
+> [!NOTE]
+> **FOR THIS EXAMPLE, PLEASE LOAD INTO** `gm_construct`, **AS IT IS THE MAP THESE VISUALS ARE BASED AROUND**.
+How to get data into vertex shader
+
+# [Example 7] - Rendertargets
+MRT
+
+# [Example 8] - The Depth Buffer
 msaa fucking with depth
+DEPTH pixel shader
 
-# [Example 10] - Shaders on Models
+# [Example 9] - Shaders on Models
+normals compression
 
-# [Example 11] - Meshes
+# [Example 10] - IMeshes
 
-# [Example 12] - Geometry Shaders
+# [Example 11] - Geometry Shaders
+
+# [Example 12] - Volumetric Textures
 
 # Shader Model Differences
 Shader Model 30:

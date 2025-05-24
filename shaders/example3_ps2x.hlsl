@@ -5,11 +5,12 @@ sampler TEXTURE1    : register(s1);
 sampler TEXTURE2    : register(s2);
 sampler TEXTURE3    : register(s3);
 
-// In gmod, there are 3 constants, with 4 controllable inputs
-// (Again, the name of each constant doesn't matter, I chose C0, C1, and C2)
+// In gmod with screenspace_general, there are 4 constants, with 4 controllable inputs
+// (Again, the name of each constant doesn't matter, I chose C0, C1, C2, and C3)
 float4 C0 : register(c0); // Holds material flags $c0_x, $c0_y, $c0_z, and $c0_w
 float4 C1 : register(c1); // Holds material flags $c1_x, $c1_y, $c1_z, and $c1_w
 float4 C2 : register(c2); // Holds material flags $c2_x, $c2_y, $c2_z, and $c2_w
+float4 C3 : register(c3); // Holds material flags $c3_x, $c3_y, $c3_z, and $c3_w
 
 // Our default input structure
 struct PS_INPUT {
@@ -24,7 +25,7 @@ float4 main(PS_INPUT frag) : COLOR {
 
 	// Animate our texture to the left
 	float2 shifted_uv = frag.uv;
-	shifted_uv.x = shifted_uv.x + curtime;
+	shifted_uv.x += curtime;   // Same as: shifted_uv.x = shifted_uv.x + curtime;
 
 	// Clamp it from 0 - 1!
 	// This isn't required, but aliviates precision issues during sampling

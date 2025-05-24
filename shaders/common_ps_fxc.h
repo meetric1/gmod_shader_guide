@@ -41,6 +41,9 @@
 const bool g_bHighQualityShadows : register( b0 );
 #endif
 
+// MEETRIC EDIT 5/23/2025, ADDS CEYEPOS
+const float4 cEyePos : register( c10 );
+
 // NOTE: w == 1.0f / (Dest alpha compressed depth range).
 const float4 g_LinearFogColor : register( c29 );
 #define OO_DESTALPHA_DEPTH_RANGE (g_LinearFogColor.w)

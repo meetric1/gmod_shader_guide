@@ -6,7 +6,7 @@
 -- we gotta use a quad for these screenspace examples, as the vertex shader isnt defined and uses
 -- some weird premade vertex shader that takes screenspace relative coordinates
 -- and render.DrawScreenQuadEx takes integer inputs which arent precise enough
-local function unfucked_draw_screen_quad(mat)
+local function draw_screen_quad(mat)
 	render.SetMaterial(mat)
 
 	cam.Start2D()
@@ -20,7 +20,7 @@ end
 -----------------------------------------------------------
 local material1 = Material("gmod_shader_guide/example1.vmt")
 local function example1()
-	unfucked_draw_screen_quad(material1)
+	draw_screen_quad(material1)
 end
 
 
@@ -29,7 +29,7 @@ end
 -----------------------------------------------------------
 local material2 = Material("gmod_shader_guide/example2.vmt")
 local function example2()
-	unfucked_draw_screen_quad(material2)
+	draw_screen_quad(material2)
 end
 
 -----------------------------------------------------------
@@ -40,7 +40,7 @@ local function example3()
 	-- set up our material input the shader will use
 	material3:SetFloat("$c0_x", CurTime())
 
-	unfucked_draw_screen_quad(material3)
+	draw_screen_quad(material3)
 end
 
 -----------------------------------------------------------
@@ -48,12 +48,17 @@ end
 -----------------------------------------------------------
 local material4 = Material("gmod_shader_guide/example4.vmt")
 local function example4()
-	unfucked_draw_screen_quad(material4)
+	draw_screen_quad(material4)
 end
 
 -----------------------------------------------------------
 ------------------------ Example 5 ------------------------
 -----------------------------------------------------------
+local material5 = Material("gmod_shader_guide/example5.vmt")
+local function example5()
+	render.SetMaterial(material5)
+	render.DrawBox(Vector(), Angle(30, 30, 30) * CurTime(), Vector(-50, -50, -50), Vector(50, 50, 50))
+end
 
 -----------------------------------------------------------
 ------------------------ Rendering ------------------------
@@ -65,6 +70,7 @@ local examples = {
 	example2,
 	example3,
 	example4,
+	example5,
 }
 
 hook.Add("PostDrawOpaqueRenderables", "shader_example", function(_, _, sky3d)
