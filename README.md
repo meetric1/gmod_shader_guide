@@ -237,10 +237,6 @@ Now, type `shader_example 5` in console and take a quick look at what this shade
 
 Then, take a look at `example5_ps2x.hlsl`. Feel free to make your own changes.
 
-> [!NOTE]
-> The vertex shader has warnings during compilation. This is normal and is the fault of valves API.\
-> It probably can be fixed by editing `common_vs_fxc.h` (file from valve) but I didn't bother
-
 > [!TIP]
 > If you look at the vmt, you will notice `$cull 1`. This is because by default, the shader renders on both sides. Set it to 0 and see what happens!
 
