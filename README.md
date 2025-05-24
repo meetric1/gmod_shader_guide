@@ -233,7 +233,7 @@ In this vertex shader example, we are going to be including some Valve helper fu
 These files include a bunch of useful functions and definitions for us to use. A good example is `cEyePos`, which returns the current eye position of the player (as you can imagine, this can be useful in many types of shaders).
 
 Now, type `shader_example 5` in console and take a quick look at what this shader currently produces. It should look like this:\
-<img src="https://github.com/user-attachments/assets/9efe05ee-a962-45df-aa8b-1b84e297f655" width="300" height="300">
+<img src="https://github.com/user-attachments/assets/9efe05ee-a962-45df-aa8b-1b84e297f655" width="50%" height="50%">
 
 Then, take a look at `example5_ps2x.hlsl`. Feel free to make your own changes.
 
