@@ -231,10 +231,8 @@ As you'd expect, vertex shaders run shader code for every vertex.
 In this vertex shader example, we are going to be including some Valve helper functions. The source code is in the `.h` files you might have seen earlier.\
 These files include a bunch of useful functions and definitions for us to use. A good example is `cEyePos`, which defines the current eye position of the player (as you can imagine, this can be useful in many types of shaders).
 
-> [!TIP]
-> I have edited `common_ps_fxc.h` so cEyePos is also possible to use with the pixel shader.
-
 Now, type `shader_example 5` in console and take a quick look at what this shader currently produces. It should look like this:\
+![image](https://github.com/user-attachments/assets/9efe05ee-a962-45df-aa8b-1b84e297f655)
 
 Then, take a look at `example5_ps2x.hlsl`. Feel free to make your own changes.
 
