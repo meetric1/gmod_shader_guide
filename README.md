@@ -259,7 +259,10 @@ I've seen people use fog data the projection matrix, but for our case I am going
 I have chosen to do this, as it is pretty versatile and allows for 6 custom inputs.\
 If there is another, cleaner technique, please make an issue or pull request to this repository so it can be documented!
 
-Once you view `shader_example 6`, open `example6_vs2x.hlsl` and `gmod_shader_guide/lua/autorun/client/shader_examples.lua` to get an understanding of how this works.
+Here is an image of what `shader_example 6` should look like:\
+<img src="https://github.com/user-attachments/assets/ca379402-9bb6-41de-94cc-011b5151bb48" width="50%" height="50%">
+
+After you view `shader_example 6`, open `example6_vs2x.hlsl` and `gmod_shader_guide/lua/autorun/client/shader_examples.lua` to get an understanding of how this works.
 
 # [Example 7] - Rendertargets
 MRT
