@@ -1,0 +1,7 @@
+screenspace_general 
+{
+	$pixshader "example6_ps20b"
+	$vertexshader "example6_vs20"
+	$basetexture "models/props_combine/tprings_globe"
+	$cull 1
+}

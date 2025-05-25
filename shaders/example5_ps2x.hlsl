@@ -1,4 +1,4 @@
-// This is just a normal pixel shader, you should understand it pretty well
+// This is a basic pixel shader, you should be able to understand it
 
 // Example texture
 sampler BASETEXTURE : register(s0);

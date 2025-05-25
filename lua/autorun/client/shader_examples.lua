@@ -61,6 +61,34 @@ local function example5()
 end
 
 -----------------------------------------------------------
+------------------------ Example 6 ------------------------
+-----------------------------------------------------------
+local material6 = Material("gmod_shader_guide/example6.vmt")
+local dummy_model = ClientsideModel("models/shadertest/vertexlit.mdl")
+dummy_model:SetModelScale(0)	-- make it invisible
+local function set_vertex_metadata(x, y, z)
+	-- make sure to supress engine lighting before setting it up, otherwise we won't override anything
+	render.SuppressEngineLighting(true)	
+
+	-- Actually send our metadata to the shader. In this case, I am using the front part of the cube (0)
+	-- You can use different directions to send up to 6 different constants
+	-- (The source code of which can be found in common_vs_fxc.h)
+	render.SetModelLighting(0, x, y, z)
+
+	-- Forces sourceengine to set up our custom lighting
+	dummy_model:DrawModel()
+
+	-- Don't forget to reenable lighting!
+	render.SuppressEngineLighting(false)
+end
+
+local function example6()
+	render.SetMaterial(material6)
+	set_vertex_metadata(CurTime(), 0, 0)
+	render.DrawSphere(Vector(), 50, 10, 10)
+end
+
+-----------------------------------------------------------
 ------------------------ Rendering ------------------------
 -----------------------------------------------------------
 
@@ -71,6 +99,7 @@ local examples = {
 	example3,
 	example4,
 	example5,
+	example6,
 }
 
 hook.Add("PostDrawOpaqueRenderables", "shader_example", function(_, _, sky3d)

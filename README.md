@@ -31,8 +31,8 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [[Example 2] - Pixel Shaders](#example-2---pixel-shaders)
 - [[Example 3] - Pixel Shader Constants](#example-3---pixel-shader-constants)
 - [[Example 4] - GPU Architecture](#example-4---gpu-architecture)
-- [[Example 5] - vertex shaders](#example-5---vertex-shaders)
-- [[Example 6] - vertex shader constants]
+- [[Example 5] - Vertex Shaders](#example-5---vertex-shaders)
+- [[Example 6] - Vertex Shader Constants](#example-6---vertex-shader-constants)
 - [[Example 7] - Rendertargets]
 - [[Example 8] - the depth buffer]
 - [[Example 9] - shaders on models]
@@ -94,8 +94,7 @@ Each example will teach you about a specific topic about shaders. My hope is tha
 Once loaded in, you should be able to type `shader_example 1` in your console to view the first shader. (It should just be a red rectangle on your screen) It isn't very interesting but we'll work on making some cool shaders.
 
 # [Example 1] - Your First Shader
-In order to make a shader, we will need something to compile it. For this guide I have decided to use [ShaderCompile](https://github.com/SCell555/ShaderCompile), as it supports 64 bit and is a hell of a lot easier than setting up the normal sourceengine shader compiler.\
-I am also using an edited version of [ficool2's](https://github.com/ficool2/sdk_screenspace_shaders) `build_single_shader.bat`.
+In order to make a shader, we will need something to compile it. For this guide I have decided to use [ShaderCompile](https://github.com/SCell555/ShaderCompile), as it supports 64 bit and is a hell of a lot easier than setting up the normal sourceengine shader compiler.
 
 After taking a look at `shader_example 1`, please close GMod and navigate inside this repo to `gmod_shader_guide/shaders`.\
 The source code of all the shaders are in this folder as `.hlsl` files.\
@@ -238,13 +237,29 @@ Now, type `shader_example 5` in console and take a quick look at what this shade
 Then, take a look at `example5_ps2x.hlsl`. Feel free to make your own changes.
 
 > [!TIP]
-> If you look at the vmt, you will notice `$cull 1`. This is because by default, the shader renders on both sides. Set it to 0 and see what happens!
+> If you look at the vmt, you will notice the `$cull` flag being set to 1. This is because by default, the shader renders on both sides. Set it to 0 and see what happens!
+
+> [!TIP]
+> For performance reasons, it is generally a good idea to keep as many calculations as possible within the vertex shader, because the pixel shader runs a lot more than the vertex shader.
 
 # [Example 6] - Vertex Shader Constants
 
 > [!NOTE]
 > **FOR THIS EXAMPLE, PLEASE LOAD INTO** `gm_construct`, **AS IT IS THE MAP THESE VISUALS ARE BASED AROUND**.
-How to get data into vertex shader
+
+(MEME)
+
+The source code for `screenspace_general` does not specify any custom constants we can use to input data into the vertex shader.
+
+In order to get metadata into our vertex shader, we are going to need to sneak it in through existing constants, since there aren't any explicitly defined.\
+This is pretty hacky, but I'm not aware of any other way, so for now I'm just going to document what I know.
+
+I've seen people use fog data the projection matrix, but for our case I am going to use the ambient cube.
+
+I have chosen to do this, as it is pretty versatile and allows for 6 custom inputs.\
+If there is another, cleaner technique, please make an issue or pull request to this repository so it can be documented!
+
+Once you view `shader_example 6`, open `example6_vs2x.hlsl` and `gmod_shader_guide/lua/autorun/client/shader_examples.lua` to get an understanding of how this works.
 
 # [Example 7] - Rendertargets
 MRT
@@ -261,6 +276,8 @@ normals compression
 # [Example 11] - Geometry Shaders
 
 # [Example 12] - Volumetric Textures
+traditional animated textures arent possible
+need to use volumetric
 
 # Shader Model Differences
 Shader Model 30:
