@@ -13,7 +13,6 @@ local function draw_screen_quad(mat)
 	render.DrawQuad(Vector(-1, 1), Vector(-0.5, 1), Vector(-0.5, 0.5), Vector(-1, 0.5))
 	cam.End2D()
 end
--- If you are reading this^ and wondering why even the simplest example requires some fuckery.. welcome to gmod
 
 -----------------------------------------------------------
 ------------------------ Example 1 ------------------------
@@ -91,6 +90,11 @@ end
 -----------------------------------------------------------
 ------------------------ Example 7 ------------------------
 -----------------------------------------------------------
+
+--
+-- This is probably the most complex example in this guide. Sorry for any confusion it may cause!
+--
+
 local rt_mat = CreateMaterial("ex7_mat", "UnlitGeneric", {["$ignorez"] = 1})
 
 -- fills a rendertarget with a grass block texture
@@ -111,7 +115,7 @@ local point_clamp     = GetRenderTargetEx("ex7_3", 16, 16, 0, 2,  1 + 4 + 8,   0
 
 -- draw_texture is an insanely inefficient function btw. Don't use this code
 local function draw_texture(texture, x, y, size)
-	-- Set our material with our rendertarget (its pretty much just a texture)
+	-- Set our material texture to our rendertarget
 	rt_mat:SetTexture("$basetexture", texture:GetName())
 	render.SetMaterial(rt_mat)
 
@@ -129,7 +133,7 @@ local function draw_texture(texture, x, y, size)
 		mesh.Position(x + size, y + size, 0)
 		mesh.TexCoord(0, 2, 2)
 		mesh.AdvanceVertex()
-		
+
 		mesh.Position(x, y + size, 0)
 		mesh.TexCoord(0, -1, 2)
 		mesh.AdvanceVertex()

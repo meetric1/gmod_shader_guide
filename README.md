@@ -278,7 +278,7 @@ Since I don't really have anything else to say, I am going to document some of m
 > Despite what the wiki tells you, render targets do not have mipmapping.
 
 > [!NOTE]
-> In a shader you should still return a color space of `0 - 1` regardless of the render targets IMAGE_FORMAT
+> In a shader you should still return a color space of `0.0 - 1.0` regardless of the render targets IMAGE_FORMAT
 
 > [!NOTE]
 > Source Engine is really weird and does gamma correction on render targets (INCLUDING on the alpha channel!), meaning you will likely want to use the `$linearwrite` flag on your shader if you want exact results. This is particularly useful with UI shaders

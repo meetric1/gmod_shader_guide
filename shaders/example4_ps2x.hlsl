@@ -14,13 +14,10 @@ struct PS_INPUT {
 	float2 uv    : TEXCOORD0;	// Texture coordinates
 };
 
-// Blurs in a 3x3 area around our UV coordinate
+// This is a function that blurs a 3x3 area around our UV coordinate
 // Note that this code is *very* inefficient. Most techniques split the work into 2 passes
 // This reduces the complexity of the algorithm to O(n) instead of O(n^2)
 // For simplicity however, we're gonna go with this less efficient approach
-//
-// Oh, by the way you can define functions. Sorry for not explaining that earlier :P
-// Hopefully the syntax is pretty readable
 float3 blur_3x3(PS_INPUT frag) {
 	float3 average = float3(0.0, 0.0, 0.0);
 
@@ -60,8 +57,8 @@ float3 operation_2(PS_INPUT frag) {
 }
 
 float4 main(PS_INPUT frag) : COLOR {
-	// Both operations blur half of the pixels on the texture, but one of them is much more efficent
-	// Which one do you think is more efficient? (Answer at bottom of shader)
+	// Both operations blur half of the pixels on the texture, but one of them is much less efficent
+	// Which one do you think is less efficient? (Answer at bottom of shader)
 
 	// Operation 1
 	float3 final_color = operation_1(frag);
@@ -109,10 +106,11 @@ float4 main(PS_INPUT frag) : COLOR {
 //
 // 
 //
+
 // If you said that Operation 1 was LESS efficient, you would be correct!
 // Despite both implementations blurring the same number of pixels, Operation 1 is LESS efficient.
 
-// This is because Operation 1 does not maintains control flow within each warp. Warps are spread around a texture in groups
+// This is because Operation 1 does not maintain control flow within each warp. Warps are spread around a texture in groups.
 // In Operation 1, we can notice that blurring is done in a checkerboard pattern, meaning every other pixel is blurred
 // This means that our warp is diverging for every other pixel, meaning half the warp doesn't do anything and sits idle
 // Lots of divergence -> bad!
