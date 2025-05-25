@@ -33,13 +33,14 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [[Example 4] - GPU Architecture](#example-4---gpu-architecture)
 - [[Example 5] - Vertex Shaders](#example-5---vertex-shaders)
 - [[Example 6] - Vertex Shader Constants](#example-6---vertex-shader-constants)
-- [[Example 7] - Rendertargets]
-- [[Example 8] - the depth buffer]
-- [[Example 9] - shaders on models]
-- [[Example 10] - imeshes]
-- [[Example 11] - geometry shaders]
+- [[Example 7] - Render Targets]
+- [[Example 8] - Multi-Render Targets]
+- [[Example 9] - the depth buffer]
+- [[Example 10] - shaders on models]
+- [[Example 11] - imeshes]
 - [[Example 12] - volume textures]
-- [We're Done!](#we're_done!)
+- [[Example 13] - geometry shaders]
+- [We're Done!](#were-done)
 
 # What is a Shader?
 You may be asking to yourself, `what is a shader and why should I care?`, well have you ever wondered how games are able to display such complex geometry and graphics? At some point in any game you play, there is code running on your [GPU](https://en.wikipedia.org/wiki/Graphics_processing_unit) that determines the color of every pixel displayed on your screen. Yes, you heard that right, for *every* pixel there is code running to determine its color, in real time. Thats what we'll be writing today.
@@ -264,21 +265,39 @@ Here is an image of what `shader_example 6` should look like:\
 
 After you view `shader_example 6`, open `example6_vs2x.hlsl` and `gmod_shader_guide/lua/autorun/client/shader_examples.lua` to get an understanding of how this works.
 
-# [Example 7] - Rendertargets
-MRT
+# [Example 7] - Render Targets
+We're going to take a small detour with shaders to talk about render targets, as they are very important when implementing your own render pipelines.
 
-# [Example 8] - The Depth Buffer
+The concept of a render target is quite simple. A render target is simply a texture that you can edit.
+
+`shader_example 7` Simply shows you different flags you can use in a 16x16 render target.
+
+Since I don't really have anything else to say, I am going to document some of my findings about render targets which some people may find useful.
+
+> [!NOTE]
+> Despite what the wiki tells you, render targets do not have mipmapping.
+
+> [!NOTE]
+> In a shader you should still return a color space of 0 - 1 regardless of the render targets IMAGE_FORMAT
+
+> [!NOTE]
+> Source Engine is really weird and does gamma correction on render targets (INCLUDING on the alpha channel!), meaning you will likely want to use the `$linearwrite` flag on your shader if you want exact results. This is particularly useful with UI shaders
+
+# [Example 8] - Multi-Render Targets
+
+
+# The Depth Buffer
 msaa fucking with depth
 DEPTH pixel shader
 
-# [Example 9] - Shaders on Models
+# Shaders on Models
 normals compression
 
-# [Example 10] - IMeshes
+# IMeshes
 
-# [Example 11] - Geometry Shaders
+# Geometry Shaders
 
-# [Example 12] - Volumetric Textures
+# Volumetric Textures
 traditional animated textures arent possible
 need to use volumetric
 
@@ -300,4 +319,4 @@ If you want more shader examples, check out shaders in the [Source SDK](https://
 
 Feel free to ask questions (or concerns) in the Issues tab. I will answer them best I can :)
 
-__Happy shading!__
+<ins>Happy shading!</ins>

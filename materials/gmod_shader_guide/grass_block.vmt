@@ -1,0 +1,6 @@
+UnlitGeneric
+{
+	$basetexture "gmod_shader_guide/grass_block"
+	$ignorez 1
+	$linearwrite 1
+}

@@ -10,7 +10,7 @@ local function draw_screen_quad(mat)
 	render.SetMaterial(mat)
 
 	cam.Start2D()
-	render.DrawQuad(Vector(-1, 1), Vector(-0.5, 1), Vector(-0.5, 0.5), Vector(-1, 0.5, 0))
+	render.DrawQuad(Vector(-1, 1), Vector(-0.5, 1), Vector(-0.5, 0.5), Vector(-1, 0.5))
 	cam.End2D()
 end
 -- If you are reading this^ and wondering why even the simplest example requires some fuckery.. welcome to gmod
@@ -89,6 +89,69 @@ local function example6()
 end
 
 -----------------------------------------------------------
+------------------------ Example 7 ------------------------
+-----------------------------------------------------------
+local rt_mat = CreateMaterial("ex7_mat", "UnlitGeneric", {["$ignorez"] = 1})
+
+-- fills a rendertarget with a grass block texture
+local function fill_rt(rt)
+	rt_mat:SetTexture("$basetexture", "gmod_shader_guide/grass_block")
+	render.SetMaterial(rt_mat)
+
+	render.PushRenderTarget(rt)
+	render.DrawScreenQuad()
+	render.PopRenderTarget()
+end
+
+-- create some render targets. the only thing changing here are the texture flags
+local nopoint_noclamp = GetRenderTargetEx("ex7_0", 16, 16, 0, 2,  16,          0, 0) fill_rt(nopoint_noclamp)
+local point_noclamp   = GetRenderTargetEx("ex7_1", 16, 16, 0, 2,  1,           0, 0) fill_rt(point_noclamp)
+local nopoint_clamp   = GetRenderTargetEx("ex7_2", 16, 16, 0, 2,  4 + 8 + 16,  0, 0) fill_rt(nopoint_clamp)
+local point_clamp     = GetRenderTargetEx("ex7_3", 16, 16, 0, 2,  1 + 4 + 8,   0, 0) fill_rt(point_clamp)
+
+-- draw_texture is an insanely inefficient function btw. Don't use this code
+local function draw_texture(texture, x, y, size)
+	-- Set our material with our rendertarget (its pretty much just a texture)
+	rt_mat:SetTexture("$basetexture", texture:GetName())
+	render.SetMaterial(rt_mat)
+
+	cam.Start2D()
+	-- this is pretty cursed but I need a mesh with wacky UVs
+	mesh.Begin(MATERIAL_QUADS, 1)
+		mesh.Position(x, y, 0)
+		mesh.TexCoord(0, -1, -1)
+		mesh.AdvanceVertex()
+
+		mesh.Position(x + size, y, 0)
+		mesh.TexCoord(0, 2, -1)
+		mesh.AdvanceVertex()
+
+		mesh.Position(x + size, y + size, 0)
+		mesh.TexCoord(0, 2, 2)
+		mesh.AdvanceVertex()
+		
+		mesh.Position(x, y + size, 0)
+		mesh.TexCoord(0, -1, 2)
+		mesh.AdvanceVertex()
+	mesh.End()
+	cam.End2D()
+end
+
+local function example7()
+	cam.Start2D()
+	draw.DrawText("anisotropic + noclamp", "ChatFont", 0, 30, color_white)
+	draw.DrawText("point + noclamp", "ChatFont", 250, 30, color_white)
+	draw.DrawText("anisotropic + clamp", "ChatFont", 0, 280, color_white)
+	draw.DrawText("point + clamp", "ChatFont", 250, 280, color_white)
+	cam.End2D()
+
+	draw_texture(nopoint_noclamp, 0, 50, 200)
+	draw_texture(point_noclamp, 250, 50, 200)
+	draw_texture(nopoint_clamp, 0, 300, 200)
+	draw_texture(point_clamp, 250, 300, 200)
+end
+
+-----------------------------------------------------------
 ------------------------ Rendering ------------------------
 -----------------------------------------------------------
 
@@ -100,6 +163,7 @@ local examples = {
 	example4,
 	example5,
 	example6,
+	example7,
 }
 
 hook.Add("PostDrawOpaqueRenderables", "shader_example", function(_, _, sky3d)
