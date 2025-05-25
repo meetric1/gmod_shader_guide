@@ -252,12 +252,10 @@ Then, take a look at `example5_ps2x.hlsl`. Feel free to make your own changes.
 
 The source code for `screenspace_general` does not specify any custom constants we can use to input data into the vertex shader.
 
-In order to get metadata into our vertex shader, we are going to need to sneak it in through existing constants, since there aren't any explicitly defined.\
-This is pretty hacky, but I'm not aware of any other way, so for now I'm just going to document what I know.
+In order to get metadata into our vertex shader, we are going to need to sneak it in through existing constants, since there aren't any explicitly defined. This is pretty hacky, but I'm not aware of any other way.
 
-I've seen people use fog data the projection matrix, but for our case I am going to use the ambient cube.
+I've seen people use fog data and the projection matrix, but for our case I am going to use the ambient cube. I have chosen to do this, as it is pretty versatile and allows for 6 custom inputs.
 
-I have chosen to do this, as it is pretty versatile and allows for 6 custom inputs.\
 If there is another, cleaner technique, please make an issue or pull request to this repository so it can be documented!
 
 Here is an image of what `shader_example 6` should look like:\
