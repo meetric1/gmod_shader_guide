@@ -254,7 +254,7 @@ The source code for `screenspace_general` does not specify any custom constants 
 
 In order to get metadata into our vertex shader, we are going to need to sneak it in through existing constants, since there aren't any explicitly defined. This is pretty hacky, but I'm not aware of any other way.
 
-I've seen people use fog data and the projection matrix, but for our case I am going to use the ambient cube. I have chosen to do this, as it is pretty versatile and allows for 6 custom inputs.
+I've seen people use fog data and the projection matrix, but for our case I am going to use the ambient cube. I have chosen to do this, as it is pretty versatile and allows for 18 custom inputs.
 
 If there is another, cleaner technique, please make an issue or pull request to this repository so it can be documented!
 

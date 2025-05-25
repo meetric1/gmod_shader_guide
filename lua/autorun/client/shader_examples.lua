@@ -139,10 +139,10 @@ end
 
 local function example7()
 	cam.Start2D()
-	draw.DrawText("anisotropic + noclamp", "ChatFont", 0, 30, color_white)
-	draw.DrawText("point + noclamp", "ChatFont", 250, 30, color_white)
-	draw.DrawText("anisotropic + clamp", "ChatFont", 0, 280, color_white)
-	draw.DrawText("point + clamp", "ChatFont", 250, 280, color_white)
+	draw.DrawText("anisotropic + noclamp", "ChatFont", 0, 30)
+	draw.DrawText("point + noclamp", "ChatFont", 250, 30)
+	draw.DrawText("anisotropic + clamp", "ChatFont", 0, 280)
+	draw.DrawText("point + clamp", "ChatFont", 250, 280)
 	cam.End2D()
 
 	draw_texture(nopoint_noclamp, 0, 50, 200)
