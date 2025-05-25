@@ -268,9 +268,11 @@ After you view `shader_example 6`, open `example6_vs2x.hlsl` and `gmod_shader_gu
 # [Example 7] - Render Targets
 We're going to take a small detour with shaders to talk about render targets, as they are very important when implementing your own render pipelines.
 
-The concept of a render target is quite simple. A render target is simply a texture that you can edit.
+The concept of a render target is quite simple. A render target is just a texture that you can edit.\
+Unless specified otherwise (using IMAGE_FORMAT) a rendertarget has 4 color channels (Red, Green, Blue, Alpha) which you should already understand fairly well.
 
-`shader_example 7` Simply shows you different flags you can use in a 16x16 render target.
+`shader_example 7` Shows you different flags you can use in a 16x16 render target.\
+![image](https://github.com/user-attachments/assets/32b1a036-b92b-47f7-9591-68fa527a3aee)
 
 Since I don't really have anything else to say, I am going to document some of my findings about render targets which some people may find useful.
 
@@ -278,7 +280,7 @@ Since I don't really have anything else to say, I am going to document some of m
 > Despite what the wiki tells you, render targets do not have mipmapping.
 
 > [!NOTE]
-> In a shader you should still return a color space of 0 - 1 regardless of the render targets IMAGE_FORMAT
+> In a shader you should still return a color space of `0 - 1` regardless of the render targets IMAGE_FORMAT
 
 > [!NOTE]
 > Source Engine is really weird and does gamma correction on render targets (INCLUDING on the alpha channel!), meaning you will likely want to use the `$linearwrite` flag on your shader if you want exact results. This is particularly useful with UI shaders
