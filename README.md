@@ -244,10 +244,10 @@ Then, take a look at `example5_ps2x.hlsl`. Feel free to make your own changes.
 
 # [Example 6] - Vertex Shader Constants
 
+![image](https://github.com/user-attachments/assets/951b74e5-6886-4d31-904d-7028bea83cce)
+
 > [!NOTE]
 > **FOR THIS EXAMPLE, PLEASE LOAD INTO** `gm_construct`, **AS IT IS THE MAP THESE VISUALS ARE BASED AROUND**.
-
-(MEME)
 
 The source code for `screenspace_general` does not specify any custom constants we can use to input data into the vertex shader.
 
