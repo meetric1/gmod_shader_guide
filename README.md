@@ -292,9 +292,9 @@ Because this example is more of an explanation, it doesn't use any custom shader
 # [Example 8] - Multi-Render Targets
 Multi-render target (abbreviated MRT) is a rendering technique which allows a shader to output to multiple render targets in a single pass. This means you can output more useful data which may be required in later stages of a rendering pipeline.
 
-Example 8 is simply 2 different postprocessing shaders of the [framebuffer](https://en.wikipedia.org/wiki/Framebuffer) (the rendered frame) running at the same time. When you type `shader_example 8`, you will see 2 rendertargets. The top is the first output, the bottom is the second. MRT allows for up to 4 separate render targets to be written to at a time. (But the example just renders 2)
-
 ![image](https://github.com/user-attachments/assets/d4105837-485f-4677-a802-99740487f91f)
+
+Example 8 is simply 2 different postprocessing shaders of the [framebuffer](https://en.wikipedia.org/wiki/Framebuffer) (the rendered frame) running at the same time. When you type `shader_example 8`, you will see 2 rendertargets. The top is the first output, the bottom is the second. MRT allows for up to 4 separate render targets to be written to at a time.
 
 Take a look at `example8_ps2x.hlsl` for the syntax.
 
