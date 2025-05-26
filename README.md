@@ -35,7 +35,7 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [[Example 6] - Vertex Shader Constants](#example-6---vertex-shader-constants)
 - [[Example 7] - Render Targets](#example-7---render-targets)
 - [[Example 8] - Multi-Render Targets](#example-8---multi-render-targets)
-- [[Example 9] - the depth buffer]
+- [[Example 9] - Depth]
 - [[Example 10] - shaders on models]
 - [[Example 11] - imeshes]
 - [[Example 12] - volume textures]
@@ -304,18 +304,17 @@ Take a look at `example8_ps2x.hlsl` for the syntax.
 > [!NOTE]
 > Any operations on the GPU which read or write memory are quite expensive, this includes (but is not limited to) any of the texture sampler functions (tex1D, tex2D, tex2Dlod, etc) and MRT
 
-# The Depth Buffer
-msaa fucking with depth
+# [Example 9] - Depth
 DEPTH pixel shader
 
-# Shaders on Models
+# [] - Shaders on Models
 normals compression
 
-# IMeshes
+# [] - IMeshes
 
-# Geometry Shaders
+# [] - Geometry Shaders
 
-# Volumetric Textures
+# [] - Volumetric Textures
 traditional animated textures arent possible
 need to use volumetric
 
