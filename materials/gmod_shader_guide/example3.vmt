@@ -5,4 +5,5 @@ screenspace_general
 	$c0_x 0
 	$c0_y 1
 	$ignorez 1
+	$vertextransform 1
 }

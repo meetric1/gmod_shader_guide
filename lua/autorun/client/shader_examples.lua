@@ -3,15 +3,10 @@
 -- Hopefully its pretty easy to understand and follow
 
 
--- we gotta use a quad for these screenspace examples, as the vertex shader isnt defined and uses
--- some weird premade vertex shader that takes screenspace relative coordinates
--- and render.DrawScreenQuadEx takes integer inputs which arent precise enough
+-- helper method to put screenspace stuff in the top right corner
 local function draw_screen_quad(mat)
 	render.SetMaterial(mat)
-
-	cam.Start2D()
-	render.DrawQuad(Vector(-1, 1), Vector(-0.5, 1), Vector(-0.5, 0.5), Vector(-1, 0.5))
-	cam.End2D()
+	render.DrawScreenQuadEx(0, 0, ScrW() / 4, ScrH() / 4)
 end
 
 -----------------------------------------------------------
@@ -95,7 +90,7 @@ end
 -- This is probably the most complex example in this guide. Sorry for any confusion it may cause!
 --
 
-local rt_mat = CreateMaterial("ex7_mat", "UnlitGeneric", {["$ignorez"] = 1})
+local rt_mat = CreateMaterial("ex7_mat", "UnlitGeneric", {["$ignorez"] = 1, ["$basetexture"] = "lights/white"})
 
 -- fills a rendertarget with a grass block texture
 local function fill_rt(rt)
@@ -156,6 +151,42 @@ local function example7()
 end
 
 -----------------------------------------------------------
+------------------------ Example 8 ------------------------
+-----------------------------------------------------------
+local material8 = Material("gmod_shader_guide/example8.vmt")
+local color0 = GetRenderTarget("ex8_0", ScrW(), ScrH())
+local color1 = GetRenderTarget("ex8_1", ScrW(), ScrH())
+local function example8()
+	-- update our framebuffer
+	render.UpdateScreenEffectTexture()
+
+	-- cache rendertarget so we can set it back (we only need to worry about the first rt)
+	local rt0 = render.GetRenderTarget()
+
+	-- Setup MRT
+	render.SetRenderTargetEx(0, color0)
+	render.SetRenderTargetEx(1, color1)
+
+	-- Draw shader
+	render.SetMaterial(material8)
+
+	-- Must be in a 3D context for some reason? I tried render.DrawScreenQuad but only the first RT got updated
+	-- I am genuinely confused by why this happens so if anyone has an answer I'd love to know
+	render.DrawBox(Vector(), Angle(0, -90, 0), Vector(-1, -1), Vector(1, 1))
+
+	-- Reset rendertargets
+	render.SetRenderTargetEx(0, rt0)
+	render.SetRenderTargetEx(1, nil)
+
+	-- Display our results
+	local scrw = ScrW() / 4
+	local scrh = ScrH() / 4
+	render.DrawTextureToScreenRect(color0, 0, 0, scrw, scrh)
+	render.DrawTextureToScreenRect(color1, 0, scrh, scrw, scrh)
+end
+
+
+-----------------------------------------------------------
 ------------------------ Rendering ------------------------
 -----------------------------------------------------------
 
@@ -168,6 +199,7 @@ local examples = {
 	example5,
 	example6,
 	example7,
+	example8,
 }
 
 hook.Add("PostDrawOpaqueRenderables", "shader_example", function(_, _, sky3d)

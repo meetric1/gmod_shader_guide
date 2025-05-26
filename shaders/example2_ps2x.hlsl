@@ -2,7 +2,7 @@
 // Note that for right now we only get to use 'uv' (texture coordinates), which is quite limited. 
 // When we cover vertex shaders I will dive more into more detail and we will make our own input structure
 struct PS_INPUT {
-	float2 uv    : TEXCOORD0;	// Texture coordinates (see https://learn.microsoft.com/en-us/windows/win32/direct3d9/images/uvcoordinates.jpg)
+	float2 uv : TEXCOORD0;	// Texture coordinates (see https://learn.microsoft.com/en-us/windows/win32/direct3d9/images/uvcoordinates.jpg)
 };
 
 // Like C and C++, all programs start with a 'main' method.

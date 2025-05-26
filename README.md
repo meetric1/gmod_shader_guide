@@ -33,8 +33,8 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [[Example 4] - GPU Architecture](#example-4---gpu-architecture)
 - [[Example 5] - Vertex Shaders](#example-5---vertex-shaders)
 - [[Example 6] - Vertex Shader Constants](#example-6---vertex-shader-constants)
-- [[Example 7] - Render Targets]
-- [[Example 8] - Multi-Render Targets]
+- [[Example 7] - Render Targets](#example-7---render-targets)
+- [[Example 8] - Multi-Render Targets](#example-8---multi-render-targets)
 - [[Example 9] - the depth buffer]
 - [[Example 10] - shaders on models]
 - [[Example 11] - imeshes]
@@ -151,6 +151,9 @@ Like I explained before, .vmt files control information about the material. In t
 > [!TIP]
 > You might have noticed the `$ignorez 1` flag in the .vmt, this is because all screenspace shaders *need* this flag to work properly! Otherwise they might not render
 
+> [!TIP]
+> The `$vertextransform 1` flag in the .vmt ensures coordinates are not in screenspace. This is useful since all of the `render.` functions are in worldspace.
+
 # [Example 3] - Pixel Shader Constants
 Hopefully by now you have a basic grasp of the HLSL syntax. Now we're going to be looking at a slightly more complex shader.\
 Type `shader_example 3` in console and take a quick look at what our shader produces. It should look like this:\
@@ -237,8 +240,11 @@ Now, type `shader_example 5` in console and take a quick look at what this shade
 
 Then, take a look at `example5_ps2x.hlsl`. Feel free to make your own changes.
 
+> [!NOTE]
+> We no longer need the `$vertextransform` and `$ignorez` flags defined in the .vmt because we aren't doing screenspace operations anymore
+
 > [!TIP]
-> If you look at the vmt, you will notice the `$cull` flag being set to 1. This is because by default, the shader renders on both sides. Set it to 0 and see what happens!
+> If you look at the vmt, you will notice the `$cull` flag being set to 1. This is because by default, the shader renders on both sides.
 
 > [!TIP]
 > For performance reasons, it is generally a good idea to keep as many calculations as possible within the vertex shader, because the pixel shader runs a lot more than the vertex shader.
@@ -267,12 +273,12 @@ After you view `shader_example 6`, open `example6_vs2x.hlsl` and `gmod_shader_gu
 We're going to take a small detour with shaders to talk about render targets, as they are very important when implementing your own render pipelines.
 
 The concept of a render target is quite simple. A render target is just a texture that you can edit.\
-Unless specified otherwise (using IMAGE_FORMAT) a rendertarget has 4 color channels (Red, Green, Blue, Alpha) which you should already understand fairly well.
+Unless specified otherwise (using IMAGE_FORMAT) a render target has 4 color channels (Red, Green, Blue, Alpha) which you should already understand fairly well.
 
 `shader_example 7` Shows you different flags you can use in a 16x16 render target.\
 ![image](https://github.com/user-attachments/assets/32b1a036-b92b-47f7-9591-68fa527a3aee)
 
-Since I don't really have anything else to say, I am going to document some of my findings about render targets which some people may find useful.
+Because this example is more of an explanation, it doesn't use any custom shaders. And since I don't really have anything else to say, I am going to document some of my findings about render targets which some people may find useful.
 
 > [!NOTE]
 > Despite what the wiki tells you, render targets do not have mipmapping.
@@ -284,7 +290,17 @@ Since I don't really have anything else to say, I am going to document some of m
 > Source Engine is really weird and does gamma correction on render targets (INCLUDING on the alpha channel!), meaning you will likely want to use the `$linearwrite` flag on your shader if you want exact results. This is particularly useful with UI shaders
 
 # [Example 8] - Multi-Render Targets
+Multi-render target (abbreviated MRT) is a rendering technique which allows a shader to output to multiple render targets in a single pass. This means you can output more useful data which may be required in later stages of a rendering pipeline.
 
+Example 8 is simply 2 different postprocessing shaders of the [framebuffer](https://en.wikipedia.org/wiki/Framebuffer) (the rendered frame) running at the same time. When you type `shader_example 8`, you will see 2 rendertargets. The top is the first output, the bottom is the second. MRT allows for up to 4 separate render targets to be written to at a time. 
+
+Take a look at `example8_ps2x.hlsl` for the syntax.
+
+> [!NOTE]
+> When doing MRT, ensure you output to render targets that are the same resolution as your render context (usually just the screen resolution), otherwise you may run into undefined behavior.
+
+> [!NOTE]
+> Any operations on the GPU which read or write memory are quite expensive, this includes (but is not limited to) any of the texture sampler functions (tex1D, tex2D, tex2DLod, etc) and MRT
 
 # The Depth Buffer
 msaa fucking with depth

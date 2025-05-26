@@ -11,7 +11,7 @@ float4 C0 : register(c0);
 
 // Our default input structure
 struct PS_INPUT {
-	float2 uv    : TEXCOORD0;	// Texture coordinates
+	float2 uv : TEXCOORD0;	// Texture coordinates
 };
 
 // This is a function that blurs a 3x3 area around our UV coordinate

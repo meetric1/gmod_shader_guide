@@ -14,7 +14,7 @@ float4 C3 : register(c3); // Holds material flags $c3_x, $c3_y, $c3_z, and $c3_w
 
 // Our default input structure
 struct PS_INPUT {
-	float2 uv    : TEXCOORD0;	// Texture coordinates
+	float2 uv : TEXCOORD0;	// Texture coordinates
 };
 
 // The section of code below will run for every pixel on the screen
