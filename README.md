@@ -292,7 +292,9 @@ Because this example is more of an explanation, it doesn't use any custom shader
 # [Example 8] - Multi-Render Targets
 Multi-render target (abbreviated MRT) is a rendering technique which allows a shader to output to multiple render targets in a single pass. This means you can output more useful data which may be required in later stages of a rendering pipeline.
 
-Example 8 is simply 2 different postprocessing shaders of the [framebuffer](https://en.wikipedia.org/wiki/Framebuffer) (the rendered frame) running at the same time. When you type `shader_example 8`, you will see 2 rendertargets. The top is the first output, the bottom is the second. MRT allows for up to 4 separate render targets to be written to at a time. 
+Example 8 is simply 2 different postprocessing shaders of the [framebuffer](https://en.wikipedia.org/wiki/Framebuffer) (the rendered frame) running at the same time. When you type `shader_example 8`, you will see 2 rendertargets. The top is the first output, the bottom is the second. MRT allows for up to 4 separate render targets to be written to at a time. (But the example just renders 2)
+
+![image](https://github.com/user-attachments/assets/d4105837-485f-4677-a802-99740487f91f)
 
 Take a look at `example8_ps2x.hlsl` for the syntax.
 
@@ -300,7 +302,7 @@ Take a look at `example8_ps2x.hlsl` for the syntax.
 > When doing MRT, ensure you output to render targets that are the same resolution as your render context (usually just the screen resolution), otherwise you may run into undefined behavior.
 
 > [!NOTE]
-> Any operations on the GPU which read or write memory are quite expensive, this includes (but is not limited to) any of the texture sampler functions (tex1D, tex2D, tex2DLod, etc) and MRT
+> Any operations on the GPU which read or write memory are quite expensive, this includes (but is not limited to) any of the texture sampler functions (tex1D, tex2D, tex2Dlod, etc) and MRT
 
 # The Depth Buffer
 msaa fucking with depth
