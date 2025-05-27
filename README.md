@@ -312,7 +312,7 @@ A [depth buffer](https://en.wikipedia.org/wiki/Z-buffering) is basically just a 
 Example of the depth buffer:\
 ![250px-R_depthoverlay](https://github.com/user-attachments/assets/64aac3e9-bff1-4a06-9fcb-f31173318ce7)
 
-During rasterization, the GPU will automatically compute the depth of a triangle, but we can actually override this using the DEPTH0 semantic in any pixel shader. `shader_example 9` is a good example of this. The sphere being drawn only uses 2 triangles (I have outlined them with wireframe), but has pixel level precision.\
+During rasterization, the GPU will automatically compute the depth of a triangle, but we can actually override this using the DEPTH0 semantic in any pixel shader. `shader_example 9` is a good example of this. This sphere being drawn only uses 2 triangles (I have outlined them with wireframe), but has pixel level precision.\
 ![image](https://github.com/user-attachments/assets/cf8a7a96-b465-458e-a314-03faf14b721b)
 
 Take a look at `example9_vs2x.hlsl` and `example9_ps2x.hlsl` for syntax and explanation of how it works
