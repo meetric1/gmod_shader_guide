@@ -18,6 +18,8 @@ local function example1()
 end
 
 
+
+
 -----------------------------------------------------------
 ------------------------ Example 2 ------------------------
 -----------------------------------------------------------
@@ -25,6 +27,8 @@ local material2 = Material("gmod_shader_guide/example2.vmt")
 local function example2()
 	draw_screen_quad(material2)
 end
+
+
 
 -----------------------------------------------------------
 ------------------------ Example 3 ------------------------
@@ -37,6 +41,8 @@ local function example3()
 	draw_screen_quad(material3)
 end
 
+
+
 -----------------------------------------------------------
 ------------------------ Example 4 ------------------------
 -----------------------------------------------------------
@@ -44,6 +50,8 @@ local material4 = Material("gmod_shader_guide/example4.vmt")
 local function example4()
 	draw_screen_quad(material4)
 end
+
+
 
 -----------------------------------------------------------
 ------------------------ Example 5 ------------------------
@@ -53,6 +61,8 @@ local function example5()
 	render.SetMaterial(material5)
 	render.DrawBox(Vector(), Angle(30, 30, 30) * CurTime(), Vector(-50, -50, -50), Vector(50, 50, 50))
 end
+
+
 
 -----------------------------------------------------------
 ------------------------ Example 6 ------------------------
@@ -81,6 +91,8 @@ local function example6()
 	set_vertex_metadata(CurTime(), 0, 0)
 	render.DrawSphere(Vector(), 50, 10, 10)
 end
+
+
 
 -----------------------------------------------------------
 ------------------------ Example 7 ------------------------
@@ -150,6 +162,8 @@ local function example7()
 	draw_texture(point_clamp, 250, 300, 200)
 end
 
+
+
 -----------------------------------------------------------
 ------------------------ Example 8 ------------------------
 -----------------------------------------------------------
@@ -186,6 +200,24 @@ local function example8()
 end
 
 
+
+-----------------------------------------------------------
+------------------------ Example 9 ------------------------
+-----------------------------------------------------------
+local material9 = Material("gmod_shader_guide/example9.vmt")
+local wireframe = Material("models/wireframe")
+local function example9()
+	-- Wireframe (to show triangles being drawn)
+	render.SetMaterial(wireframe)
+	render.DrawQuadEasy(Vector(), EyePos(), 200, 200)
+
+	-- Sphere
+	render.SetMaterial(material9)
+	render.DrawQuadEasy(Vector(), EyePos(), 200, 200)
+end
+
+
+
 -----------------------------------------------------------
 ------------------------ Rendering ------------------------
 -----------------------------------------------------------
@@ -200,6 +232,7 @@ local examples = {
 	example6,
 	example7,
 	example8,
+	example9,
 }
 
 hook.Add("PostDrawOpaqueRenderables", "shader_example", function(_, _, sky3d)

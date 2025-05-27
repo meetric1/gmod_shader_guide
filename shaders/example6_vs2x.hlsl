@@ -9,9 +9,9 @@ struct VS_INPUT {
 	float4 vTexCoord : TEXCOORD0;
 };
 
-// Our default vertex data output structure
+// A normal vertex data output structure
 struct VS_OUTPUT {
-	float4 proj_pos : POSITION;		// Required 
+	float4 proj_pos : POSITION;		// Screen space position 
 	float2 uv       : TEXCOORD0;	// UV coordinate we send to the pixel shader
 };
 

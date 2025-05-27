@@ -1,0 +1,8 @@
+screenspace_general 
+{
+	$pixshader "example9_ps20b"
+	$vertexshader "example9_vs20"
+	$cull 1
+	$depthtest 1
+	$c0_x 50
+}

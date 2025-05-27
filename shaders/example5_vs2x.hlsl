@@ -15,7 +15,7 @@ struct VS_INPUT {
 // All vertex shaders need an output to send to the pixel shader.
 // In this case, we are giving the pixel shader the UV coordinates of our model
 struct VS_OUTPUT {
-	float4 proj_pos : POSITION;		// Required 
+	float4 proj_pos : POSITION;		// Screen space position 
 	float2 uv       : TEXCOORD0;	// UV coordinate we send to the pixel shader
 };
 

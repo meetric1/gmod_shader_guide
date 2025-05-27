@@ -86,7 +86,7 @@ More info on screenspace_general:\
 https://developer.valvesoftware.com/wiki/Screenspace_General 
 
 Source code of the shader (From CS:S 2015):\
-https://github.com/sr2echa/CSGO-Source-Code/blob/master/cstrike15_src/materialsystem/stdshaders/screenspace_general.cpp
+https://github.com/lua9520/source-engine-2018-cstrike15_src/blob/master/materialsystem/stdshaders/screenspace_general.cpp
 
 # Getting Started
 To start out, clone this repo into your `GarrysMod/garrysmod/addon` folder, there are 11 examples for you to look at and follow ingame.\
@@ -172,7 +172,7 @@ Now, lets check the code behind this shader..\
 Open `example3.vmt` and take a look at its parameters. Try modifying the basetexture to something like `hunter/myplastic` or `phoenix_storms/wood` and seeing what changes!
 
 Note how, in the .vmt, I define `$c0_y` despite it not being used in the shader HLSL.\
-After playing around with the vmt, open `example3_ps2x.hlsl` and try to understand its code.\
+After playing around with the .vmt, open `example3_ps2x.hlsl` and try to understand its code.\
 Try doing something with the unused `$c0_y` parameter!
 
 > [!TIP]
@@ -244,7 +244,7 @@ Then, take a look at `example5_ps2x.hlsl`. Feel free to make your own changes.
 > We no longer need the `$vertextransform` and `$ignorez` flags defined in the .vmt because we aren't doing screenspace operations anymore
 
 > [!TIP]
-> If you look at the vmt, you will notice the `$cull` flag being set to 1. This is because by default, the shader renders on both sides.
+> If you look at the .vmt, you will notice the `$cull` flag being set to 1. This is because by default, the shader renders on both sides.
 
 > [!TIP]
 > For performance reasons, it is generally a good idea to keep as many calculations as possible within the vertex shader, because the pixel shader runs a lot more than the vertex shader.
@@ -305,7 +305,21 @@ Take a look at `example8_ps2x.hlsl` for the syntax.
 > Any operations on the GPU which read or write memory are quite expensive, this includes (but is not limited to) any of the texture sampler functions (tex1D, tex2D, tex2Dlod, etc) and MRT
 
 # [Example 9] - Depth
-DEPTH pixel shader
+This isn't something that everybody really needs to know, but its can be handy for a few different operations, so I'll document it.
+
+A [depth buffer](https://en.wikipedia.org/wiki/Z-buffering) is basically just a rendertarget that stores the depth of a pixel on the screen. It essencially determines what triangles are allowed to draw on top of other triangles. A lower depth value means that a triangle is closer to the screen.
+
+Example of the depth buffer:\
+(SOURCE DEPTH BUFFER)
+
+During rasterization, the GPU will usually automatically compute the depth of a triangle, but we can actually override this using the DEPTH0 semantic in any pixel shader.\
+`shader_example 9` is a good example of this. The sphere being drawn only uses 2 triangles (I have outlined them with wireframe), but has pixel level precision.
+(IMAGE OF EXAMPLE 9)
+
+Take a look at `example9_vs2x.hlsl` and `example9_ps2x.hlsl` for syntax and explanation of how it works
+
+> [!NOTE]
+> If you want to write depth, screenspace_general requires the `$depthtest` flag in the .vmt to be set to 1
 
 # [] - Shaders on Models
 normals compression

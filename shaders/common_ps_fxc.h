@@ -41,8 +41,10 @@
 const bool g_bHighQualityShadows : register( b0 );
 #endif
 
-// MEETRIC EDIT 5/23/2025, ADDS CEYEPOS
-const float4 cEyePos : register( c10 );
+// Meetric edit for screenspace_general
+const float3 cEyePos : register( c10 );
+const float4x4 g_viewProjMatrix : register( c11 );
+const float4x4 g_invViewMatrix : register( c15 );
 
 // NOTE: w == 1.0f / (Dest alpha compressed depth range).
 const float4 g_LinearFogColor : register( c29 );
@@ -196,7 +198,7 @@ float4 DecompressNormal( sampler NormalSampler, float2 tc, int nDecompressionMod
 HALF3 NormalizeWithCubemap( sampler normalizeSampler, HALF3 input )
 {
 //	return texCUBE( normalizeSampler, input ) * 2.0f - 1.0f;
-	return texCUBE( normalizeSampler, input );
+	return texCUBE( normalizeSampler, input ).xyz;
 }
 
 /*
