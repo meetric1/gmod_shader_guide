@@ -35,7 +35,7 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [[Example 6] - Vertex Shader Constants](#example-6---vertex-shader-constants)
 - [[Example 7] - Render Targets](#example-7---render-targets)
 - [[Example 8] - Multi-Render Targets](#example-8---multi-render-targets)
-- [[Example 9] - Depth]
+- [[Example 9] - Depth](#example-9---depth)
 - [[Example 10] - shaders on models]
 - [[Example 11] - imeshes]
 - [[Example 12] - volume textures]
@@ -307,19 +307,21 @@ Take a look at `example8_ps2x.hlsl` for the syntax.
 # [Example 9] - Depth
 This isn't something that everybody really needs to know, but its can be handy for a few different operations, so I'll document it.
 
-A [depth buffer](https://en.wikipedia.org/wiki/Z-buffering) is basically just a rendertarget that stores the depth of a pixel on the screen. It essencially determines what triangles are allowed to draw on top of other triangles. A lower depth value means that a triangle is closer to the screen.
+A [depth buffer](https://en.wikipedia.org/wiki/Z-buffering) is basically just a rendertarget that stores the depth of a pixel on the screen. It essentially determines what triangles are allowed to draw on top of other triangles. A lower depth value means that a triangle is closer to the screen.
 
 Example of the depth buffer:\
-(SOURCE DEPTH BUFFER)
+![250px-R_depthoverlay](https://github.com/user-attachments/assets/64aac3e9-bff1-4a06-9fcb-f31173318ce7)
 
-During rasterization, the GPU will usually automatically compute the depth of a triangle, but we can actually override this using the DEPTH0 semantic in any pixel shader.\
-`shader_example 9` is a good example of this. The sphere being drawn only uses 2 triangles (I have outlined them with wireframe), but has pixel level precision.
-(IMAGE OF EXAMPLE 9)
+During rasterization, the GPU will automatically compute the depth of a triangle, but we can actually override this using the DEPTH0 semantic in any pixel shader. `shader_example 9` is a good example of this. The sphere being drawn only uses 2 triangles (I have outlined them with wireframe), but has pixel level precision.\
+![image](https://github.com/user-attachments/assets/cf8a7a96-b465-458e-a314-03faf14b721b)
 
 Take a look at `example9_vs2x.hlsl` and `example9_ps2x.hlsl` for syntax and explanation of how it works
 
 > [!NOTE]
 > If you want to write depth, screenspace_general requires the `$depthtest` flag in the .vmt to be set to 1
+
+> [!NOTE]
+> Overriding depth disables culling optimizations and creates shader overdraw, which can cause high [fillrates](https://en.wikipedia.org/wiki/Fillrate) and negatively impact performance.
 
 # [] - Shaders on Models
 normals compression
