@@ -39,7 +39,7 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [[Example 7] - Render Targets](#example-7---render-targets)
 - [[Example 8] - Multi-Render Targets](#example-8---multi-render-targets)
 - [[Example 9] - Depth](#example-9---depth)
-- [[Example 10] - shaders on models]
+- [[Example 10] - Shaders on Models](#example-10---shaders-on-models)
 - [[Example 11] - imeshes]
 - [[Example 12] - volume textures]
 - [[Example 13] - geometry shaders]
@@ -321,18 +321,17 @@ Take a look at `example9_vs2x.hlsl` and `example9_ps2x.hlsl` for syntax and expl
 > The DEPTH0 semantic disables culling optimizations and creates shader overdraw, which can cause high [fillrates](https://en.wikipedia.org/wiki/Fillrate) and negatively impact performance. Avoid it if possible.
 
 # [Example 10] - Shaders on Models
-screenspace_general has a flaw, and unfortunately this flaw is stopping the shader from being able to be used on normal props without some issues.
+screenspace_general has a flaw, and unfortunately this flaw is stopping the shader from being able to be used on normal props without some issues.\
+![image](https://github.com/user-attachments/assets/9b92b1e2-2844-46ff-b443-4ad8b82e9942)
 
-(DEPTH OVERRIDE OFF IMAGE)
-
-The problem has to do with [this line of code](https://github.com/sr2echa/CSGO-Source-Code/blob/dafb3cafa88f37cd405df3a9ffbbcdcb1dba8f63/cstrike15_src/materialsystem/stdshaders/screenspace_general.cpp#L173). Remember before when we were talking about the depth buffer? This line basically says "ALWAYS WRITE TO THE DEPTH BUFFER NO MATTER WHAT", meaning that even if a triangle is further than another triangle when it is being rendered, depth is still written to. This is a problem when considering normal rendering operations.
+The problem has to do with [this line of code](https://github.com/sr2echa/CSGO-Source-Code/blob/dafb3cafa88f37cd405df3a9ffbbcdcb1dba8f63/cstrike15_src/materialsystem/stdshaders/screenspace_general.cpp#L173). Remember before when we were talking about the depth buffer? This line basically says "ALWAYS WRITE TO THE DEPTH BUFFER NO MATTER WHAT", meaning that even if a triangle is further than another triangle when it is being rendered, depth is still being written to. This is a problem when considering normal rendering operations.
 
 We learned however that we can override this behavior with the DEPTH0 semantic and the `$depthtest` flag. And while you *could* fix it this way, I want to take the more trivial approach which doesn't involve this method (I briefly talked about it being not ideal).
 
 To fix this problem trivially, I introduce `render.OverrideDepthEnable`, which allows you to override this flag.
 
 Take a look at `shader_example 10` for a visualization that switches between off and on.\
-(DEPTH OVERRIDE ON IMAGE)
+![image](https://github.com/user-attachments/assets/908568a3-cd1d-4740-95a9-5aa091872220)
 
 This of course begs the question, `"What if I want to use my shader on a prop, like a normal material?"`.\
 Well first, you will need to have flags `$softwareskin 1`, `$vertexnormal 1`, and `$model 1` on your .vmt.
