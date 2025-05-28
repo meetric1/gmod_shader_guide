@@ -1,0 +1,11 @@
+screenspace_general 
+{
+	$pixshader "example10_ps20b"
+	$vertexshader "example10_vs20"
+	$basetexture "phoenix_storms/wood"
+	$cull 1
+	$depthtest 1
+	$model 1
+	$softwareskin 1
+	$vertexnormal 1
+}

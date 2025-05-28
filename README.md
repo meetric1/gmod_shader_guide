@@ -22,6 +22,9 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 > [!NOTE]
 > This guide likely does not cover *everything* about gmod shaders and HLSL, but I will try my best to include everything that is relevant. If you discover something new, **PLEASE** share it! Feel free to create an issue or make a pull request and add your own shader examples.
 
+> [!NOTE]
+> **FOR THIS GUIDE, PLEASE LOAD INTO** `gm_construct` **AS IT IS THE MAP THESE VISUALS ARE BASED AROUND**.
+
 # Table of Contents
 - [What is a Shader?](#what-is-a-shader)
 - [The Shader Pipeline](#the-shader-pipeline)
@@ -223,9 +226,6 @@ To continue, navigate to `gmod_shader_guide/shaders` and take a look at `example
 
 # [Example 5] - Vertex Shaders
 
-> [!NOTE]
-> **FOR THIS EXAMPLE, PLEASE LOAD INTO** `gm_construct` **AS IT IS THE MAP THESE VISUALS ARE BASED AROUND**.
-
 Now that we have the basics on everything pixel shader related, it's time to jump into vertex shaders.
 
 Like I explained earlier in [The Shader Pipeline](#the-shader-pipeline), vertex shaders are the section of code which transforms 3D coordinates onto the screen.\
@@ -252,9 +252,6 @@ Then, take a look at `example5_ps2x.hlsl`. Feel free to make your own changes.
 # [Example 6] - Vertex Shader Constants
 
 ![meme](https://github.com/user-attachments/assets/cbd5d599-ae07-4de6-90bc-027ce073a128)
-
-> [!NOTE]
-> **FOR THIS EXAMPLE, PLEASE LOAD INTO** `gm_construct`, **AS IT IS THE MAP THESE VISUALS ARE BASED AROUND**.
 
 The source code for `screenspace_general` does not specify any custom constants we can use to input data into the vertex shader.
 
@@ -305,7 +302,7 @@ Take a look at `example8_ps2x.hlsl` for the syntax.
 > Any operations on the GPU which read or write memory are quite expensive, this includes (but is not limited to) any of the texture sampler functions (tex1D, tex2D, tex2Dlod, etc) and MRT
 
 # [Example 9] - Depth
-This isn't something that everybody really needs to know, but its can be handy for a few different operations, so I'll document it.
+This isn't something that everybody really needs, but it can be handy for a few different operations, so I'll document it.
 
 A [depth buffer](https://en.wikipedia.org/wiki/Z-buffering) is basically just a rendertarget that stores the depth of a pixel on the screen. It essentially determines what triangles are allowed to draw on top of other triangles. A lower depth value means that a triangle is closer to the screen.
 
@@ -321,10 +318,30 @@ Take a look at `example9_vs2x.hlsl` and `example9_ps2x.hlsl` for syntax and expl
 > If you want to write depth, screenspace_general requires the `$depthtest` flag in the .vmt to be set to 1
 
 > [!NOTE]
-> Overriding depth disables culling optimizations and creates shader overdraw, which can cause high [fillrates](https://en.wikipedia.org/wiki/Fillrate) and negatively impact performance.
+> The DEPTH0 semantic disables culling optimizations and creates shader overdraw, which can cause high [fillrates](https://en.wikipedia.org/wiki/Fillrate) and negatively impact performance. Avoid it if possible.
 
-# [] - Shaders on Models
-normals compression
+# [Example 10] - Shaders on Models
+screenspace_general has a flaw, and unfortunately this flaw is stopping the shader from being able to be used on normal props without some issues.
+
+(DEPTH OVERRIDE OFF IMAGE)
+
+The problem has to do with [this line of code](https://github.com/sr2echa/CSGO-Source-Code/blob/dafb3cafa88f37cd405df3a9ffbbcdcb1dba8f63/cstrike15_src/materialsystem/stdshaders/screenspace_general.cpp#L173). Remember before when we were talking about the depth buffer? This line basically says "ALWAYS WRITE TO THE DEPTH BUFFER NO MATTER WHAT", meaning that even if a triangle is further than another triangle when it is being rendered, depth is still written to. This is a problem when considering normal rendering operations.
+
+We learned however that we can override this behavior with the DEPTH0 semantic and the `$depthtest` flag. And while you *could* fix it this way, I want to take the more trivial approach which doesn't involve this method (I briefly talked about it being not ideal).
+
+To fix this problem trivially, I introduce `render.OverrideDepthEnable`, which allows you to override this flag.
+
+Take a look at `shader_example 10` for a visualization that switches between off and on.\
+(DEPTH OVERRIDE ON IMAGE)
+
+This of course begs the question, `"What if I want to use my shader on a prop, like a normal material?"`.\
+Well first, you will need to have flags `$softwareskin 1`, `$vertexnormal 1`, and `$model 1` on your .vmt.
+
+`$softwareskin` basically disables normals compression, and while you *can* have compression enabled on your shader (you will need to do `#define COMPRESSED_VERTS 1` before including `common_vs_fxc.h`, then call `DecompressVertex_Normal` on your modelspace normal before skinning it), for simplicity I would suggest avoiding this for now and just setting the .vmt flag.
+
+`$vertexnormal` basically just says "Hey! this model has normals!" and lets entities / props render normally. Otherwise the material won't work.
+
+And finally, `$model` just tells SourceEngine that you can put your material on a physical entity (I'm honestly not too sure why this flag exists. Is it for performance reasons? So shaders load faster? I honestly don't know).
 
 # [] - IMeshes
 

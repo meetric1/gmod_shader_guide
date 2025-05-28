@@ -219,6 +219,38 @@ end
 
 
 -----------------------------------------------------------
+------------------------ Example 10 ------------------------
+-----------------------------------------------------------
+local model = ClientsideModel("models/props_junk/wood_crate001a_damagedmax.mdl")
+model:SetNoDraw(true)
+model:SetMaterial("gmod_shader_guide/example10")
+
+local function example10()
+	local override = CurTime() % 2
+	local ply = LocalPlayer()
+	model:SetPos(ply:EyePos() + ply:GetAimVector() * 100)
+
+	if override > 1 then
+		-- draw with override
+		render.OverrideDepthEnable(true, true)
+		model:DrawModel()
+		render.OverrideDepthEnable(false, false)
+
+		cam.Start2D()
+		draw.DrawText("DEPTH OVERRIDE ON", "ChatFont", ScrW() / 2, ScrH() / 2, nil, TEXT_ALIGN_CENTER)
+		cam.End2D()
+	else
+		-- draw without override
+		model:DrawModel()
+		
+		cam.Start2D()
+		draw.DrawText("DEPTH OVERRIDE OFF", "ChatFont", ScrW() / 2, ScrH() / 2, nil, TEXT_ALIGN_CENTER)
+		cam.End2D()
+	end
+end
+
+
+-----------------------------------------------------------
 ------------------------ Rendering ------------------------
 -----------------------------------------------------------
 
@@ -233,6 +265,7 @@ local examples = {
 	example7,
 	example8,
 	example9,
+	example10,
 }
 
 hook.Add("PostDrawOpaqueRenderables", "shader_example", function(_, _, sky3d)
@@ -242,6 +275,4 @@ hook.Add("PostDrawOpaqueRenderables", "shader_example", function(_, _, sky3d)
 	if example then
 		example()
 	end
-
-	--render.OverrideDepthEnable(false, false)
 end)
