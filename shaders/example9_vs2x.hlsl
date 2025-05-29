@@ -8,8 +8,9 @@ struct VS_INPUT {
 };
 
 // Please note that storing the view projection matrix in the output structure is kind of cursed,
-// but I don't really have any other method of calculating the right depth.
-// You could probably also pass the matrix in the $viewprojmat flag,
+// but I don't have another method of calculating the right depth in a pixel shader.
+//
+// You could potentially pass the matrix in the $viewprojmat flag (which is probably more performant),
 // however I'm pretty sure its not directly accessable via GLua and needs to be explicitly constructed
 struct VS_OUTPUT {
 	float4 proj_pos    : POSITION;  // Screen space position 

@@ -302,6 +302,42 @@ end
 
 
 
+------------------------------------------------------------
+------------------------ Example 12 ------------------------
+------------------------------------------------------------
+local material12 = Material("gmod_shader_guide/example12")
+
+local function example12()
+	-- remember, we need to override depth for proper depth sorting
+	render.OverrideDepthEnable(true, true)
+
+	render.SetMaterial(material12)
+
+	-- The VPOS size is in pixel space, meaning we will need to do some calculations to make it appear the same scale
+	-- I'll need to send the player FOV into the shader to scale our points correctly
+	-- Ideally this calculation would be done within the shader but I don't know how to extract the FOV from the view projection matrix
+	local point_scale = 2000
+	local point_fov = math.tan(math.rad((LocalPlayer():GetFOV() / 2)))
+	set_vertex_metadata(point_scale / point_fov, 0, 0)
+
+	-- generate and render a dynamic IMesh with random points
+	mesh.Begin(MATERIAL_POINTS, 360)
+		for i = 1, 360 do
+			-- weird little pattern
+			local random_x = math.sin(CurTime() + i * 0.03) * 100
+			local random_y = math.sin(CurTime() + i * 0.04) * 100
+			local random_z = math.sin(CurTime() + i * 0.05) * 100
+
+			mesh.Position(random_x, random_y, random_z)
+			mesh.Color(HSVToColor(i, 1, 1):Unpack())	-- rainbow
+			mesh.AdvanceVertex()
+		end
+	mesh.End()
+
+	render.OverrideDepthEnable(false, false)
+end
+
+
 -----------------------------------------------------------
 ------------------------ Rendering ------------------------
 -----------------------------------------------------------
@@ -319,6 +355,7 @@ local examples = {
 	example9,
 	example10,
 	example11,
+	example12,
 }
 
 hook.Add("PostDrawOpaqueRenderables", "shader_example", function(_, _, sky3d)

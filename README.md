@@ -32,8 +32,8 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [[Example 9] - Depth](#example-9---depth)
 - [[Example 10] - Shaders on Models](#example-10---shaders-on-models)
 - [[Example 11] - IMeshes](#example-11---imeshes)
-- [[Example 12] - volume textures]
-- [[Example 13] - geometry shaders]
+- [[Example 12] - geometry shaders]
+- [[Example 13] - volume textures]
 - [We're Done!](#were-done)
 
 # What is a Shader?
@@ -83,13 +83,13 @@ Source code of the shader (From CS:S 2015):\
 https://github.com/lua9520/source-engine-2018-cstrike15_src/blob/master/materialsystem/stdshaders/screenspace_general.cpp
 
 # Getting Started
-To start out, clone this repo into your `GarrysMod/garrysmod/addon` folder, there are 11 examples for you to look at and follow ingame.\
+To start out, clone this repo into your `GarrysMod/garrysmod/addon` folder, there are 13 examples for you to look at and follow ingame.\
 Each example will teach you about a specific topic about shaders. My hope is that by reading this guide and visualizing the shader you can get a better grasp of what is going on.
 
 Once loaded in, you should be able to type `shader_example 1` in your console to view the first shader. (It should just be a red rectangle on your screen) It isn't very interesting but we'll work on making some cool shaders.
 
 # [Example 1] - Your First Shader
-In order to make a shader, we will need something to compile it. For this guide I have decided to use [ShaderCompile](https://github.com/SCell555/ShaderCompile), as it supports 64 bit and is a hell of a lot easier than setting up the normal sourceengine shader compiler.
+In order to make a shader, we will need something to compile it. For this guide I have decided to use [ShaderCompile](https://github.com/SCell555/ShaderCompile), as it supports 64 bit and is a hell of a lot easier than setting up the normal SourceEngine shader compiler.
 
 After taking a look at `shader_example 1`, please close GMod and navigate inside this repo to `gmod_shader_guide/shaders`.\
 The source code of all the shaders are in this folder as `.hlsl` files.\
@@ -257,6 +257,9 @@ Here is an image of what `shader_example 6` should look like:\
 
 After you view `shader_example 6`, open `example6_vs2x.hlsl` and `gmod_shader_guide/lua/autorun/client/shader_examples.lua` to get an understanding of how this works.
 
+> [!NOTE]
+> This example reuses the pixel shader from [Example 5](#example-5---vertex-shaders)
+
 # [Example 7] - Render Targets
 We're going to take a small detour with shaders to talk about render targets, as they are very important when implementing your own render pipelines.
 
@@ -372,21 +375,28 @@ Just remember when rendering these meshes to call `render.OverrideDepthEnable` o
 > [!NOTE]
 > All of the warnings on [this page](https://wiki.facepunch.com/gmod/Enums/MATERIAL) stating the primative types "don't work" are incorrect. They all work.
 
-# [Example ] - Geometry Shaders
+# [Example 12] - Geometry Shaders
+We're nearing the end of this guide, which means that the upcoming examples are less practical, but still worth documenting.
+
+A geometry shader is a new shader that we haven't covered yet. Essencially it allows you to create new geometry on the GPU. Don't get them confused with [vertex shaders](#example-5---vertex-shaders), which only *modify* existing vertices. Geometry shaders allow you to *create* geometry.
+
+Now, this might excite you, as this seems quite powerful, however Source Engine is old and doesn't actually support custom geometry shaders. Sorry :(
+
+However, there is a hardcoded primative geometry shader, point sprites!
+
+If we generate a mesh with the `MATERIAL_POINTS` primative and specify the `PSIZE` semantic in the vertex shader, we can create our very own point sprites.
+
+Theres some wacky math involved in getting the sprite size look correct, but I think I've done it properly. The only problem is I need to 
+
+> [!NOTE]
+> Point sprites for some reason have a size limit of about 100 pixels making them honestly pretty useless for anything practical
+
+> [!NOTE]
+> This example reuses the pixel shader from [Example 11](#example-11---imeshes)
 
 # [Example ] - Volumetric Textures
 traditional animated textures arent possible
 need to use volumetric
-
-# Shader Model Differences
-Shader Model 30:
-- Supports Dynamic Loops
-- More avaliable instructions
-- VPOS input in pixel shader
-- Not supported on linux
-
-Shader Model 20b:
-- Supported on Linux
 
 # We're done!
 If you made it here, you (hopefully) have read and understand everything there is to know (or atleast, that I know) about GMod shaders.\
