@@ -99,7 +99,8 @@ end
 -----------------------------------------------------------
 
 --
--- This is probably the most complex example in this guide. Sorry for any confusion it may cause!
+-- This is probably the most complex code example in this guide. 
+-- Although its not really meant to be read, I apologize for any confusion it may cause!
 --
 
 local rt_mat = CreateMaterial("ex7_mat", "UnlitGeneric", {["$ignorez"] = 1, ["$basetexture"] = "lights/white"})
@@ -250,6 +251,57 @@ local function example10()
 end
 
 
+------------------------------------------------------------
+------------------------ Example 11 ------------------------
+------------------------------------------------------------
+local material11 = Material("gmod_shader_guide/example11")
+
+-- Generate a simple imesh
+local example_imesh = Mesh()
+mesh.Begin(example_imesh, MATERIAL_TRIANGLES, 1)
+	-- x (red)
+	mesh.Position(10, 0, 0)
+	mesh.Color(255, 0, 0, 255)
+	mesh.AdvanceVertex()
+	-- y (green)
+	mesh.Position(0, 10, 0)
+	mesh.Color(0, 255, 0, 255)
+	mesh.AdvanceVertex()
+	-- z (blue)
+	mesh.Position(0, 0, 10)
+	mesh.Color(0, 0, 255, 255)
+	mesh.AdvanceVertex()
+mesh.End()
+
+local function example11()
+	-- Draw XYZ coordinate system (x = red, y = green, z = blue)
+	render.DrawLine(Vector(), Vector(110, 0, 0), Color(255, 0, 0, 255), true)
+	render.DrawLine(Vector(), Vector(0, 11, 0), Color(0, 255, 0, 255), true)
+	render.DrawLine(Vector(), Vector(0, 0, 110), Color(0, 0, 255, 255), true)
+
+	-- remember, we need to override depth for proper depth sorting
+	render.OverrideDepthEnable(true, true)
+	render.SetMaterial(material11)
+	for y = 0, 9 do
+		for x = 0, 9 do
+			-- fun little wave
+			local height = math.sin((x - y + CurTime()) / 2) * 0.5
+			local matrix = Matrix()
+			matrix:SetTranslation(Vector(x, y, height) * 10)
+
+			-- Each triangle you see is a mesh being drawn. 
+			-- We push a model matrix which is our instancing (same mesh drawn at different location)
+			cam.PushModelMatrix(matrix)
+			example_imesh:Draw()
+			cam.PopModelMatrix()
+		end
+	end
+
+	render.OverrideDepthEnable(false, false)
+end
+
+
+
 -----------------------------------------------------------
 ------------------------ Rendering ------------------------
 -----------------------------------------------------------
@@ -266,6 +318,7 @@ local examples = {
 	example8,
 	example9,
 	example10,
+	example11,
 }
 
 hook.Add("PostDrawOpaqueRenderables", "shader_example", function(_, _, sky3d)

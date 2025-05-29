@@ -1,12 +1,3 @@
-# HELLO! IF YOU ARE READING THIS, THE GUIDE IS CURRENTLY WIP AND UNFINISHED, DON'T JUDGE IT TOO HARSHLY YET
-#
-#
-#
-#
-#
-#
-#
-#
 # The Comprehensive GMod Shader Guide
 Hello! Welcome to my GMod Shader Guide!
 
@@ -286,6 +277,12 @@ Because this example is more of an explanation, it doesn't use any custom shader
 > [!NOTE]
 > Source Engine is really weird and does gamma correction on render targets (INCLUDING on the alpha channel!), meaning you will likely want to use the `$linearwrite` flag on your shader if you want exact results. This is particularly useful with UI shaders
 
+> [!NOTE]
+> MATERIAL_RT_DEPTH_SHARED does not work when MSAA is enabled, and will automatically be set to MATERIAL_RT_DEPTH_SEPARATE
+
+> [!NOTE]
+> You can input a render target as a sampler with [IMaterial:SetTexture](https://wiki.facepunch.com/gmod/IMaterial:SetTexture)
+
 # [Example 8] - Multi-Render Targets
 Multi-render target (abbreviated MRT) is a rendering technique which allows a shader to output to multiple render targets in a single pass. This means you can output more useful data which may be required in later stages of a rendering pipeline.
 
@@ -326,15 +323,17 @@ screenspace_general has a flaw, and unfortunately this flaw is stopping the shad
 
 The problem has to do with [this line of code](https://github.com/sr2echa/CSGO-Source-Code/blob/dafb3cafa88f37cd405df3a9ffbbcdcb1dba8f63/cstrike15_src/materialsystem/stdshaders/screenspace_general.cpp#L173). Remember before when we were talking about the depth buffer? This line basically says "ALWAYS WRITE TO THE DEPTH BUFFER NO MATTER WHAT", meaning that even if a triangle is further than another triangle when it is being rendered, depth is still being written to. This is a problem when considering normal rendering operations.
 
-We learned however that we can override this behavior with the DEPTH0 semantic and the `$depthtest` flag. And while you *could* fix it this way, I want to take the more trivial approach which doesn't involve this method (I briefly talked about it being not ideal).
+We learned however that we can override this behavior with the DEPTH0 semantic and the `$depthtest` flag. While you *could* fix it this way, I want to do a more trivial approach which doesn't involve this method (Remember I briefly talked about it being not ideal).
 
 To fix this problem trivially, I introduce `render.OverrideDepthEnable`, which allows you to override this flag.
 
-Take a look at `shader_example 10` for a visualization that switches between off and on.\
+Take a look at `shader_example 10` for a visualization that toggles `render.OverrideDepthEnable`:\
 ![image](https://github.com/user-attachments/assets/908568a3-cd1d-4740-95a9-5aa091872220)
 
 This of course begs the question, `"What if I want to use my shader on a prop, like a normal material?"`.\
-Well first, you will need to have flags `$softwareskin 1`, `$vertexnormal 1`, and `$model 1` on your .vmt.
+And truthfully I don't know a fix for that. You will need to use the DEPTH0 semantic.
+
+You will also need to have flags `$softwareskin 1`, `$vertexnormal 1`, and `$model 1` on your .vmt so the model renders properly.
 
 `$softwareskin` basically disables normals compression, and while you *can* have compression enabled on your shader (you will need to do `#define COMPRESSED_VERTS 1` before including `common_vs_fxc.h`, then call `DecompressVertex_Normal` on your modelspace normal before skinning it), for simplicity I would suggest avoiding this for now and just setting the .vmt flag.
 
@@ -343,6 +342,27 @@ Well first, you will need to have flags `$softwareskin 1`, `$vertexnormal 1`, an
 And finally, `$model` just tells SourceEngine that you can put your material on a physical entity (I'm honestly not too sure why this flag exists. Is it for performance reasons? So shaders load faster? I honestly don't know).
 
 # [] - IMeshes
+
+I think its time we should move into IMeshes, aka procedural geometry.
+
+IMeshes are a brilliant way to generate and render geometry quickly. They allow for instancing and are very versatile because we can put information on every vertex on a model.
+
+`shader_example 11` is just an example of vertex coloring, and [instancing](https://en.wikipedia.org/wiki/Geometry_instancing):\
+(EXAmple 11)
+
+Each triangle you see is 1 mesh being rendered at that location.
+Note that this shader also introduces the `$vertexcolor` flag, which is required when toying with meshes that include vertex coloring
+
+I've also set `$cull` to 0 to ensure the shader runs on both sides of the triangle
+
+> [!NOTE]
+> Despite what the wiki says, avoid using [IMesh:BuildFromTriangles](https://wiki.facepunch.com/gmod/IMesh:BuildFromTriangles). [mesh.Begin](https://wiki.facepunch.com/gmod/mesh.Begin) is more efficient and has less memory overhead. Just ensure your code does not error inside of a `mesh.Begin` or you will crash (I suggest using a pcall).
+
+> [!NOTE]
+> To properly set up lighting on an IMesh (When using shaders like VertexLitGeneric), you will need to render a model to force SourceEngine to set up lighting.
+
+> [!NOTE]
+> All of the warnings on [this page](https://wiki.facepunch.com/gmod/Enums/MATERIAL) stating the primative types "don't work" are incorrect. They all work.
 
 # [] - Geometry Shaders
 
