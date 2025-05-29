@@ -276,7 +276,7 @@ mesh.End()
 local function example11()
 	-- Draw XYZ coordinate system (x = red, y = green, z = blue)
 	render.DrawLine(Vector(), Vector(110, 0, 0), Color(255, 0, 0, 255), true)
-	render.DrawLine(Vector(), Vector(0, 11, 0), Color(0, 255, 0, 255), true)
+	render.DrawLine(Vector(), Vector(0, 110, 0), Color(0, 255, 0, 255), true)
 	render.DrawLine(Vector(), Vector(0, 0, 110), Color(0, 0, 255, 255), true)
 
 	-- remember, we need to override depth for proper depth sorting
