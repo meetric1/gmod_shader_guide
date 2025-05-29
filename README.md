@@ -31,7 +31,7 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [[Example 8] - Multi-Render Targets](#example-8---multi-render-targets)
 - [[Example 9] - Depth](#example-9---depth)
 - [[Example 10] - Shaders on Models](#example-10---shaders-on-models)
-- [[Example 11] - imeshes]
+- [[Example 11] - IMeshes](#example-11---imeshes)
 - [[Example 12] - volume textures]
 - [[Example 13] - geometry shaders]
 - [We're Done!](#were-done)
@@ -341,19 +341,25 @@ You will also need to have flags `$softwareskin 1`, `$vertexnormal 1`, and `$mod
 
 And finally, `$model` just tells SourceEngine that you can put your material on a physical entity (I'm honestly not too sure why this flag exists. Is it for performance reasons? So shaders load faster? I honestly don't know).
 
-# [] - IMeshes
+# [Example 11] - IMeshes
 
-I think its time we should move into IMeshes, aka procedural geometry.
+I think its time we should move into IMeshes, which is a form of procedural geometry.
 
-IMeshes are a brilliant way to generate and render geometry quickly. They allow for instancing and are very versatile because we can put information on every vertex on a model.
+In case you don't know already, a [mesh](https://en.wikipedia.org/wiki/Polygon_mesh) is a bunch of vertices and indices that define the triangles in a model.
 
-`shader_example 11` is just an example of vertex coloring, and [instancing](https://en.wikipedia.org/wiki/Geometry_instancing):\
-(EXAmple 11)
+IMeshes are a brilliant way to generate and render custom geometry quickly. They are very versatile because we can put our own custom data on every vertex in a mesh.
 
-Each triangle you see is 1 mesh being rendered at that location.
+`shader_example 11` is just an example of vertex coloring, and mesh [instancing](https://en.wikipedia.org/wiki/Geometry_instancing):\
+<img src="https://github.com/user-attachments/assets/1818d19d-15f4-41c2-8181-98b435ac8da4" width="50%" height="50%">
+
+Each triangle you see is 1 mesh being rendered at a location, in this case a 10x10 grid.
 Note that this shader also introduces the `$vertexcolor` flag, which is required when toying with meshes that include vertex coloring
 
 I've also set `$cull` to 0 to ensure the shader runs on both sides of the triangle
+
+You can also give the shader more data, for instance with `mesh.UserData` which takes the `TANGENT` vertex input.
+
+Just remember when rendering these meshes to call `render.OverrideDepthEnable` or you'll run into the problem we had in Example 10
 
 > [!NOTE]
 > Despite what the wiki says, avoid using [IMesh:BuildFromTriangles](https://wiki.facepunch.com/gmod/IMesh:BuildFromTriangles). [mesh.Begin](https://wiki.facepunch.com/gmod/mesh.Begin) is more efficient and has less memory overhead. Just ensure your code does not error inside of a `mesh.Begin` or you will crash (I suggest using a pcall).
@@ -364,9 +370,9 @@ I've also set `$cull` to 0 to ensure the shader runs on both sides of the triang
 > [!NOTE]
 > All of the warnings on [this page](https://wiki.facepunch.com/gmod/Enums/MATERIAL) stating the primative types "don't work" are incorrect. They all work.
 
-# [] - Geometry Shaders
+# [Example ] - Geometry Shaders
 
-# [] - Volumetric Textures
+# [Example ] - Volumetric Textures
 traditional animated textures arent possible
 need to use volumetric
 
