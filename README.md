@@ -32,8 +32,8 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [[Example 9] - Depth](#example-9---depth)
 - [[Example 10] - Shaders on Models](#example-10---shaders-on-models)
 - [[Example 11] - IMeshes](#example-11---imeshes)
-- [[Example 12] - Point Sprites]
-- [[Example 13] - volume textures]
+- [[Example 12] - Point Sprites](#example-12---point-sprites)
+- [[Example 13] - Volume Textures](#example-13---volumetric-textures)
 - [We're Done!](#were-done)
 
 # What is a Shader?
