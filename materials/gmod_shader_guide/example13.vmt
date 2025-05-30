@@ -1,0 +1,9 @@
+screenspace_general 
+{
+	$pixshader "example13_ps20b"
+	$vertexshader "example13_vs20"
+	$basetexture "gmod_shader_guide/volume"
+	$cull 0	
+	$c0_x 100
+	$depthtest 1
+}

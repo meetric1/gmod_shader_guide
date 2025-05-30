@@ -232,7 +232,10 @@ Now, type `shader_example 5` in console and take a quick look at what this shade
 Then, take a look at `example5_ps2x.hlsl`. Feel free to make your own changes.
 
 > [!NOTE]
-> We no longer need the `$vertextransform` and `$ignorez` flags defined in the .vmt because we aren't doing screenspace operations anymore
+> We no longer need the `$vertextransform` and `$ignorez` flags defined in the .vmt because we aren't doing screenspace operations anymore.
+
+> [!NOTE]
+> You cannot sample a texture within the vertex shader.
 
 > [!TIP]
 > If you look at the .vmt, you will notice the `$cull` flag being set to 1. This is because by default, the shader renders on both sides.
@@ -389,7 +392,7 @@ Theres some wacky math involved in getting the sprite size look correct, but I t
 Although not the most powerful thing, point sprites can create some pretty neat effects, like `shader_example 12`:\
 ![image](https://github.com/user-attachments/assets/ed54109b-abfe-4a99-99c3-5b3d1f200d0a)
 
-Unfortunately, this is pretty much the most you can do with them within Source Engine. There are a bunch of [point sprite material flags](https://learn.microsoft.com/en-us/windows/win32/direct3d9/point-sprites) which aren't set by Source Engine.
+Unfortunately, this is pretty much the most you can do with them within Source Engine.
 
 > [!NOTE]
 > Point sprites for some reason have a size limit of about 100 pixels making them honestly pretty useless for anything practical
@@ -398,9 +401,20 @@ Unfortunately, this is pretty much the most you can do with them within Source E
 > This example reuses the pixel shader from [Example 11](#example-11---imeshes)
 
 # [Example 13] - Volumetric Textures
-Unlike Example 12, this example involves something which *is* actually quite practical
-traditional animated textures arent possible
-need to use volumetric
+Remember earlier when we sampled textures? Well you can actually sample them in 3D too! These are called Volumetric Textures and you can imagine them like a ton of 2D images stacked on top of each other.
+
+Example of a volumetric texture:\
+(VOLUME TEXTURE EXAMPLE)
+
+There isn't too much else to say, as this is a relatively simple concept to understand. I have provided a seamless volumetric texture .vtf which I used in my [cloud shader](https://youtu.be/3A_LBtNbx7c) a few years ago. The red channel has the smallest blobs, green is medium blobs, blue is largest.
+
+Here is a slice of the volume texture (note its quite low quality for file size sake):\
+(VOLUME TEXTURE SLICE)
+
+`example 13` simply runs a plane through this texture and displays it.\
+(EXMAPLE 13)
+
+This can also be used for animated textures, as they aren't possible traditioanlly (screenspace_general doesn't support animated textures)
 
 # We're done!
 If you made it here, you (hopefully) have read and understand everything there is to know (or atleast, that I know) about GMod shaders.\

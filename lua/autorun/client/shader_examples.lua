@@ -339,6 +339,21 @@ end
 
 
 -----------------------------------------------------------
+------------------------ Example 13 ------------------------
+-----------------------------------------------------------
+local material13 = Material("gmod_shader_guide/example13.vmt")
+local function example13()
+	render.DrawWireframeBox(Vector(), Angle(), Vector(), Vector(100, 100, 100), color_white, true)
+
+	render.SetMaterial(material13)
+	local pos = Vector(50, 50, math.sin(CurTime()) * 40 + 50)
+	local dir = Vector(0, 0, 1)--(Angle(CurTime(), CurTime(), CurTime()) * 10):Forward()
+	render.DrawQuadEasy(pos, dir, 200, 200, color_white)
+end
+
+
+
+-----------------------------------------------------------
 ------------------------ Rendering ------------------------
 -----------------------------------------------------------
 
@@ -356,6 +371,7 @@ local examples = {
 	example10,
 	example11,
 	example12,
+	example13,
 }
 
 hook.Add("PostDrawOpaqueRenderables", "shader_example", function(_, _, sky3d)
