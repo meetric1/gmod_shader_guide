@@ -11,13 +11,6 @@ struct PS_INPUT {
 float4 main(PS_INPUT frag) : COLOR {
 	float uv_scale = C0.x;
 
-	// if outside our box, discard our pixel
-	if (
-		frag.pos.x < 0 || frag.pos.x > uv_scale || 
-		frag.pos.y < 0 || frag.pos.y > uv_scale || 
-		frag.pos.z < 0 || frag.pos.z > uv_scale
-	) discard;
-
 	float3 final_color;
 	final_color.xyz = tex3D(BASETEXTURE, frag.pos / uv_scale).zzz;	// Only display red channel
 

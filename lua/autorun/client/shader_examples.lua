@@ -346,9 +346,9 @@ local function example13()
 	render.DrawWireframeBox(Vector(), Angle(), Vector(), Vector(100, 100, 100), color_white, true)
 
 	render.SetMaterial(material13)
-	local pos = Vector(50, 50, math.sin(CurTime()) * 40 + 50)
-	local dir = Vector(0, 0, 1)--(Angle(CurTime(), CurTime(), CurTime()) * 10):Forward()
-	render.DrawQuadEasy(pos, dir, 200, 200, color_white)
+	local pos = Vector(50, 50, math.sin(CurTime()) * 49 + 50)
+	local dir = Vector(0, 0, 1)
+	render.DrawQuadEasy(pos, dir, 100, 100, color_white)
 end
 
 
