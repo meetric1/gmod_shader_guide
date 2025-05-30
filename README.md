@@ -70,8 +70,7 @@ In this case, we are taking advantage of a shader named `screenspace_general`, w
 > [!NOTE]
 > A material can have many flags, but only 1 shader.
 
-Despite its name, screenspace_general is not actually screenspace (as of the 2015 CS:S branch), and was likely used for testing.\
-See [Example 9] for more specific information regarding screenspace_general
+Despite its name, screenspace_general is not actually screenspace (as of the 2015 CS:S branch), and was likely used for testing.
 
 More info on .vmt's:\
 https://developer.valvesoftware.com/wiki/VMT 
