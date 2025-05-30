@@ -404,15 +404,15 @@ Unfortunately, this is pretty much the most you can do with them within Source E
 Remember earlier when we sampled textures? Well you can actually sample them in 3D too! These are called Volumetric Textures and you can imagine them like a ton of 2D images stacked on top of each other.
 
 Example of a volumetric texture:\
-(VOLUME TEXTURE EXAMPLE)
+![image](https://github.com/user-attachments/assets/e63d2311-568b-4abf-b008-0a08de4bf63c)
 
-There isn't too much else to say, as this is a relatively simple concept to understand. I have provided a seamless volumetric texture .vtf which I used in my [cloud shader](https://youtu.be/3A_LBtNbx7c) a few years ago. The red channel has the smallest blobs, green is medium blobs, blue is largest.
+There isn't too much else to say, as this is a relatively small concept. I have provided a seamless volumetric texture .vtf which I used in my [cloud shader](https://youtu.be/3A_LBtNbx7c) a few years ago. The red channel has the smallest blobs, green is medium blobs, blue is largest.
 
-Here is a slice of the volume texture (note its quite low quality for file size sake):\
-(VOLUME TEXTURE SLICE)
+Here is a slice of the volume texture (note its quite low quality for the sake of file size):\
+![worley_noise0](https://github.com/user-attachments/assets/4aa554f0-3098-4a54-b5f0-ff6d61c52a27)
 
 `example 13` simply runs a plane through this texture and displays it.\
-(EXMAPLE 13)
+![image](https://github.com/user-attachments/assets/59178858-7315-49db-974e-bc9ce70ebcfb)
 
 This can also be used for animated textures, as they aren't possible traditioanlly (screenspace_general doesn't support animated textures)
 
