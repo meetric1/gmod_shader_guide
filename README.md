@@ -85,7 +85,7 @@ https://github.com/lua9520/source-engine-2018-cstrike15_src/blob/master/material
 To start out, clone this repo into your `GarrysMod/garrysmod/addon` folder, there are 13 examples for you to look at and follow ingame.\
 Each example will teach you about a specific topic about shaders. My hope is that by reading this guide and visualizing the shader you can get a better grasp of what is going on.
 
-Once loaded in, you should be able to type `shader_example 1` in your console to view the first shader. (It should just be a red rectangle on your screen) It isn't very interesting but we'll work on making some cool shaders.
+Once loaded in, you should be able to type `shader_example 1` in your console to view the first shader. (It should just be a red rectangle on your screen) It isn't very interesting but we'll work on making some cool stuff.
 
 # [Example 1] - Your First Shader
 In order to make a shader, we will need something to compile it. For this guide I have decided to use [ShaderCompile](https://github.com/SCell555/ShaderCompile), as it supports 64 bit and is a hell of a lot easier than setting up the normal SourceEngine shader compiler.
@@ -250,7 +250,7 @@ The source code for `screenspace_general` does not specify any custom constants 
 
 In order to get metadata into our vertex shader, we are going to need to sneak it in through existing constants, since there aren't any explicitly defined. This is pretty hacky, but I'm not aware of any other way.
 
-I've seen people use fog data and the projection matrix, but for our case I am going to use the ambient cube. I have chosen to do this, as it is pretty versatile and allows for 18 custom inputs.
+I've seen people use fog data and the projection matrix, but for our case I am going to use the ambient cube. I have chosen to do this, as it is pretty versatile and allows for up to 18 custom inputs.
 
 If there is another, cleaner technique, please make an issue or pull request to this repository so it can be documented!
 
@@ -342,7 +342,7 @@ And truthfully I don't know a fix for that. You will need to use the DEPTH0 sema
 
 You will also need to have flags `$softwareskin 1`, `$vertexnormal 1`, and `$model 1` on your .vmt so the model renders properly.
 
-`$softwareskin` basically disables normals compression, and while you *can* have compression enabled on your shader (you will need to do `#define COMPRESSED_VERTS 1` before including `common_vs_fxc.h`, then call `DecompressVertex_Normal` on your modelspace normal before skinning it), for simplicity I would suggest avoiding this for now and just setting the .vmt flag.
+`$softwareskin` basically disables normals compression, and while you *can* have compression enabled on your shader (you will need to do `#define COMPRESSED_VERTS 1` before including `common_vs_fxc.h`, then call `DecompressVertex_Normal` on your modelspace normal before skinning it), but for simplicity I would suggest avoiding this for now and just setting the .vmt flag.
 
 `$vertexnormal` basically just says "Hey! this model has normals!" and lets entities / props render normally. Otherwise the material won't work.
 
@@ -350,7 +350,7 @@ And finally, `$model` just tells SourceEngine that you can put your material on 
 
 # [Example 11] - IMeshes
 
-I think its time we should move into IMeshes, which is a form of procedural geometry.
+I think its time we should move into IMeshes, which are a form of procedural geometry.
 
 In case you don't know already, a [mesh](https://en.wikipedia.org/wiki/Polygon_mesh) is a bunch of vertices and indices that define the triangles in a model.
 
@@ -413,7 +413,7 @@ Here is a slice of the volume texture (note its quite low quality for the sake o
 `example 13` simply runs a plane through this texture and displays it.\
 ![image](https://github.com/user-attachments/assets/59178858-7315-49db-974e-bc9ce70ebcfb)
 
-This can also be used for animated textures, as they aren't possible traditioanlly (screenspace_general doesn't support animated textures)
+This can also be used for animated textures, as they aren't possible traditionally (screenspace_general doesn't support animated textures)
 
 # We're done!
 If you made it here, you (hopefully) have read and understand everything there is to know (or atleast, that I know) about GMod shaders.\
