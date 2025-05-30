@@ -324,9 +324,9 @@ local function example12()
 	mesh.Begin(MATERIAL_POINTS, 360)
 		for i = 1, 360 do
 			-- weird little pattern
-			local random_x = math.sin(CurTime() + i * 0.03) * 100
-			local random_y = math.sin(CurTime() + i * 0.04) * 100
-			local random_z = math.sin(CurTime() + i * 0.05) * 100
+			local random_x = math.sin(CurTime() + i * 0.02) * 100
+			local random_y = math.sin(CurTime() + i * 0.03) * 100
+			local random_z = math.sin(CurTime() + i * 0.04) * 100
 
 			mesh.Position(random_x, random_y, random_z)
 			mesh.Color(HSVToColor(i, 1, 1):Unpack())	-- rainbow

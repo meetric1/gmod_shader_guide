@@ -32,7 +32,7 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [[Example 9] - Depth](#example-9---depth)
 - [[Example 10] - Shaders on Models](#example-10---shaders-on-models)
 - [[Example 11] - IMeshes](#example-11---imeshes)
-- [[Example 12] - geometry shaders]
+- [[Example 12] - Point Sprites]
 - [[Example 13] - volume textures]
 - [We're Done!](#were-done)
 
@@ -375,18 +375,25 @@ Just remember when rendering these meshes to call `render.OverrideDepthEnable` o
 > [!NOTE]
 > All of the warnings on [this page](https://wiki.facepunch.com/gmod/Enums/MATERIAL) stating the primative types "don't work" are incorrect. They all work.
 
-# [Example 12] - Geometry Shaders
+# [Example 12] - Point Sprites
 We're nearing the end of this guide, which means that the upcoming examples are less practical, but still worth documenting.
 
-A geometry shader is a new shader that we haven't covered yet. Essencially it allows you to create new geometry on the GPU. Don't get them confused with [vertex shaders](#example-5---vertex-shaders), which only *modify* existing vertices. Geometry shaders allow you to *create* geometry.
+The point sprites in Source Engine are displayed on the screen using a hardcoded a geometry shader.
 
-Now, this might excite you, as this seems quite powerful, however Source Engine is old and doesn't actually support custom geometry shaders. Sorry :(
+A geometry shader is a new shader that we haven't covered yet. Essentially it allows you to create new geometry on the GPU. Don't get them confused with [vertex shaders](#example-5---vertex-shaders), which only *modify* existing vertices. Geometry shaders allow you to *create* geometry.
 
-However, there is a hardcoded primative geometry shader, point sprites!
+Now, this might excite you, as this seems quite powerful, however Source Engine is old and doesn't actually support custom geometry shaders.
+
+Point sprites however have a geometry shader built in, which we can actually utilize!
 
 If we generate a mesh with the `MATERIAL_POINTS` primative and specify the `PSIZE` semantic in the vertex shader, we can create our very own point sprites.
 
-Theres some wacky math involved in getting the sprite size look correct, but I think I've done it properly. The only problem is I need to 
+Theres some wacky math involved in getting the sprite size look correct, but I think I've done it properly.
+
+Although not the most powerful thing, point sprites can create some pretty neat effects, like this:\
+(POINT SPRITE IMAGE)
+
+Unfortunately, this is pretty much the most you can do with them given GLua and screenspace_general. There are a bunch of [point sprite material flags](https://learn.microsoft.com/en-us/windows/win32/direct3d9/point-sprites) which aren't set by Source Engine.
 
 > [!NOTE]
 > Point sprites for some reason have a size limit of about 100 pixels making them honestly pretty useless for anything practical
@@ -394,7 +401,8 @@ Theres some wacky math involved in getting the sprite size look correct, but I t
 > [!NOTE]
 > This example reuses the pixel shader from [Example 11](#example-11---imeshes)
 
-# [Example ] - Volumetric Textures
+# [Example 13] - Volumetric Textures
+Unlike Example 12, this example involves something which *is* actually quite practical
 traditional animated textures arent possible
 need to use volumetric
 
