@@ -1,5 +1,5 @@
 // Volumetric texture
-sampler BASETEXTURE : register(s0);
+sampler3D BASETEXTURE : register(s0);
 
 float4 C0 : register(c0); // c0_x = UV scale
 
