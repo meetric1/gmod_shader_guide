@@ -415,6 +415,9 @@ Here is a slice of the volume texture (note its quite low quality for the sake o
 
 This can also be used for animated textures, as they aren't possible traditionally (screenspace_general doesn't support animated textures)
 
+> [!NOTE]
+> This example might not work on AMD cards, I'm not actually sure why.
+
 # We're done!
 If you made it here, you (hopefully) have read and understand everything there is to know (or atleast, that I know) about GMod shaders.\
 Please note that this is NOT a comprehensive guide on everything HLSL! There is still plenty more to learn, but this is definitely a good starting point.
