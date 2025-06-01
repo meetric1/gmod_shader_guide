@@ -8,10 +8,7 @@ This guide **ASSUMES** you know the basics of how to code, including syntax, var
 If you do not know how to code I suggest doing a couple GLua projects and then coming back to this guide, as it is quite technical and a bit complex.
 
 > [!NOTE]
-> Source Engine (the game engine GMod uses), runs on DirectX9, which is *very* old, and there are many modern graphics features that do not exist. This means we will not be discussing things like tessilation shaders, mesh shaders, compute shaders, tensor shaders, and other modern shader types.
-
-> [!NOTE]
-> This guide likely does not cover *everything* about gmod shaders and HLSL, but I will try my best to include everything that is relevant. If you discover something new, **PLEASE** share it! Feel free to create an issue or make a pull request and add your own shader examples.
+> This guide does not cover *everything* about gmod shaders and HLSL, but I will try my best to include everything that is relevant. If you discover something new, **PLEASE** share it! Feel free to create an issue or make a pull request and add your own shader examples.
 
 > [!NOTE]
 > **FOR THIS GUIDE, PLEASE LOAD INTO** `gm_construct` **AS IT IS THE MAP THESE VISUALS ARE BASED AROUND**.
