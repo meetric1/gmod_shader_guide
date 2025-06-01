@@ -231,10 +231,10 @@ Then, take a look at `example5_ps2x.hlsl`. Feel free to make your own changes.
 > We no longer need the `$vertextransform` and `$ignorez` flags defined in the .vmt because we aren't doing screenspace operations anymore.
 
 > [!NOTE]
-> You cannot sample a texture within the vertex shader.
+> You **CANNOT** sample a texture within the vertex shader.
 
 > [!TIP]
-> If you look at the .vmt, you will notice the `$cull` flag being set to 1. This is because by default, the shader renders on both sides.
+> By default, the shader renders on both sides. I set the `$cull` flag to 1 in the .vmt to disable this, as it's usually undesired.
 
 > [!TIP]
 > For performance reasons, it is generally a good idea to keep as many calculations as possible within the vertex shader, because the pixel shader runs a lot more than the vertex shader.
@@ -363,7 +363,7 @@ I've also set `$cull` to 0 to ensure the shader runs on both sides of the triang
 
 You can also give the shader more data, for instance with `mesh.UserData` which takes the `TANGENT` vertex input.
 
-Just remember when rendering these meshes to call `render.OverrideDepthEnable` or you'll run into the problem we had in Example 10
+Just remember when rendering these meshes to call `render.OverrideDepthEnable` or you'll run into the problem we had in [Example 10](#example-10---shaders-on-models)
 
 > [!NOTE]
 > Despite what the wiki says, avoid using [IMesh:BuildFromTriangles](https://wiki.facepunch.com/gmod/IMesh:BuildFromTriangles). [mesh.Begin](https://wiki.facepunch.com/gmod/mesh.Begin) is more efficient and has less memory overhead. Just ensure your code does not error inside of a `mesh.Begin` or you will crash (I suggest using a pcall).
