@@ -377,7 +377,7 @@ Just remember when rendering these meshes to call `render.OverrideDepthEnable` o
 # [Example 12] - Point Sprites
 We're nearing the end of this guide, which means that the upcoming examples are less practical, but still worth documenting.
 
-The point sprites in Source Engine are displayed on the screen using a geometry shader.
+The point sprites in Source Engine are displayed on the screen using a [geometry shader](https://learn.microsoft.com/en-us/windows/win32/direct3d11/geometry-shader-stage).
 
 Don't get geometry shaders confused with vertex shaders, which *modify* existing vertices. Geometry shaders allow you to *create* vertices.
 
