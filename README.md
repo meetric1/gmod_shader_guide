@@ -79,7 +79,7 @@ Source code of the shader (From CS:S 2015):\
 https://github.com/lua9520/source-engine-2018-cstrike15_src/blob/master/materialsystem/stdshaders/screenspace_general.cpp
 
 # Getting Started
-To start out, clone this repo into your `GarrysMod/garrysmod/addon` folder, there are 13 examples for you to look at and follow ingame.\
+To start out, clone this repo into your `GarrysMod/garrysmod/addons` folder, there are 13 examples for you to look at and follow ingame.\
 Each example will teach you about a specific topic about shaders. My hope is that by reading this guide and visualizing the shader you can get a better grasp of what is going on.
 
 Once loaded in, you should be able to type `shader_example 1` in your console to view the first shader. (It should just be a red rectangle on your screen) It isn't very interesting but we'll work on making some cool stuff.
