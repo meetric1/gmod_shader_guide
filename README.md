@@ -95,10 +95,14 @@ Now, for reference, the name of a shader is very important, so lets split it int
 1. `example1` - The name of the shader, this can be anything you want.
 2. `_` - Required underscore to separate the name and the rest of the data.
 3. `ps` - Stands for Pixel Shader, can also be `vs` (Can you guess what it stands for?)
-4. `2x` - The shader version. I will be using `2x`, as it is the most supported. `30` is also valid and has less restrictions, but does not work on native Linux
+4. `2x` - The shader version. I will be using `2x`, as it is the most supported. `30` is also valid and has less restrictions.
 5. `.hlsl` - The file extension, all source shaders use hlsl
 
 You must ENSURE that the name stays exactly in this format, or the tools provided won't work.
+
+If you choose the `30` shader version notice that texture sampling on vertex shaders does not work on Linux.
+There could be other problems with 3.0 Shaders on Linux, as everything has not been tested yet.
+If you notice any other issues with your shaders on Linux, please open a pull request or submit an issue.
 
 Now, we're going to overwrite an existing shader with a new one.\
 Drag `example1_ps2x.hlsl` on top of `build_single_shader.bat` and it should compile and automatically put the shader into `fxc`, which is where GMod shaders are loaded from.\
@@ -205,9 +209,7 @@ If none of that made sense, all you really need to know is that you should avoid
 
 ### Loops
 
-In this guide, We are using shader model 20b. Model 20b is interesting because (as far as I'm aware) all loops need to be [unrolled](https://en.wikipedia.org/wiki/Loop_unrolling), and cannot be dynamic.
-
-Shader model 30 does however support dynamic loops, but is not supported on Linux systems.
+In this guide, We are using shader model 20b. Model 20b is interesting because (as far as I'm aware) all loops need to be [unrolled](https://en.wikipedia.org/wiki/Loop_unrolling), and cannot be dynamic (Shader model 30 does however support dynamic loops).
 
 To continue, navigate to `gmod_shader_guide/shaders` and take a look at `example4_ps2x.hlsl`
 
