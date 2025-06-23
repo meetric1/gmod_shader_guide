@@ -44,7 +44,7 @@ Here are some examples of some cool shaders:\
 **GMod Volumetric Clouds (Evgeny Akabenko):**\
 ![Untitled](https://github.com/user-attachments/assets/0aae45f1-9d7d-49b3-acc3-df3ae7ed8fcd)\
 **Half Life: Alyx liquid shader (Valve):**\
-![ebd09ce02b4b9b7c3d59eb442ee6afe22f20d291](https://github.com/user-attachments/assets/0339658e-a9ae-4b0a-8aff-c0f55a11ae46)\
+![ebd09ce02b4b9b7c3d59eb442ee6afe22f20d291](https://github.com/user-attachments/assets/0339658e-a9ae-4b0a-8aff-c0f55a11ae46)
 
 # The Shader Pipeline
 All graphics APIs, have something called a [Graphics Pipeline](https://en.wikipedia.org/wiki/Graphics_pipeline). This is a generalized, fixed set of stages which function to transform a 3 dimensional scene, into something the screen can display.
@@ -95,7 +95,7 @@ Now, for reference, the name of a shader is very important, so lets split it int
 1. `example1` - The name of the shader, this can be anything you want.
 2. `_` - Required underscore to separate the name and the rest of the data.
 3. `ps` - Stands for Pixel Shader, can also be `vs` (Can you guess what it stands for?)
-4. `2x` - The shader version. I will be using `2x`, as it is the most supported. `30` is also valid and has less restrictions, but does not work on native Linux
+4. `2x` - The shader version. I will be using `2x`, as it is the most supported. `30` is also valid and has less restrictions.
 5. `.hlsl` - The file extension, all source shaders use hlsl
 
 You must ENSURE that the name stays exactly in this format, or the tools provided won't work.
@@ -114,6 +114,10 @@ If the square is red, we haven't overwritten anything and you've probably missed
 
 > [!TIP]
 > When you eventually start developing your own shaders, make sure to give them a distinct name, or you might get conflictions
+
+> [!NOTE]
+> Shader model `30` is untested on Linux systems and (supposedly,) certain features may not work as intended.\
+> If you notice any problems with Linux shaders, please open a pull request or submit an issue for documentation purposes.
 
 ![image](https://github.com/user-attachments/assets/f009c4a2-4e2b-4b65-a297-7f8fa9434880)
 
@@ -207,7 +211,7 @@ If none of that made sense, all you really need to know is that you should avoid
 
 In this guide, We are using shader model 20b. Model 20b is interesting because (as far as I'm aware) all loops need to be [unrolled](https://en.wikipedia.org/wiki/Loop_unrolling), and cannot be dynamic.
 
-Shader model 30 does however support dynamic loops, but is not supported on Linux systems.
+Shader model 30 does support dynamic loops, but for now I would suggest avoiding them, as infinite loops on the GPU will lock up your computer and usually require a full system restart.
 
 To continue, navigate to `gmod_shader_guide/shaders` and take a look at `example4_ps2x.hlsl`
 
