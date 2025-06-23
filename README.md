@@ -211,7 +211,7 @@ If none of that made sense, all you really need to know is that you should avoid
 
 In this guide, We are using shader model 20b. Model 20b is interesting because (as far as I'm aware) all loops need to be [unrolled](https://en.wikipedia.org/wiki/Loop_unrolling), and cannot be dynamic.
 
-Shader model 30 does support dynamic loops, but for now I would suggest avoiding them, as infinite loops on the GPU will lock up your computer and usually require a full system restart.
+Shader model 30 does support dynamic loops, but for now I would suggest avoiding them, as infinite loops on the GPU lock up your computer and usually require a full system restart.
 
 To continue, navigate to `gmod_shader_guide/shaders` and take a look at `example4_ps2x.hlsl`
 
