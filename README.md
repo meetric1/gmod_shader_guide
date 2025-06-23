@@ -219,13 +219,9 @@ To continue, navigate to `gmod_shader_guide/shaders` and take a look at `example
 
 Now that we have the basics on everything pixel shader related, it's time to jump into vertex shaders.
 
-Like I explained earlier in [The Shader Pipeline](#the-shader-pipeline), vertex shaders are the section of code which transforms 3D coordinates onto the screen.\
-As you'd expect, vertex shaders run shader code for every vertex.
+Like I explained earlier in [The Shader Pipeline](#the-shader-pipeline), vertex shaders are the section of code which transforms 3D coordinates onto the screen. As you'd expect, vertex shaders run shader code for every vertex.
 
-Vertex shaders are also super important, as they give lots of information to the pixel shader. Usually, vertex shaders pass [texture coordinates](https://en.wikipedia.org/wiki/UV_mapping) but it really is up to you.
-
-> [!NOTE]
-> Values passed to the pixel shader are [interpolated](https://en.wikipedia.org/wiki/Interpolation). This can be visualized in [Example 11](#example-11---imeshes). (Each vertice gets a unique color, you can see the color getting interpolated)
+Vertex shaders are super important, as they also give information to the pixel shader. Usually, vertex shaders pass things like [texture coordinates](https://en.wikipedia.org/wiki/UV_mapping), but it's really up to you.
 
 In this vertex shader example, we are going to be including some Valve helper functions. The source code is in the `.h` files you might have seen earlier.
 
