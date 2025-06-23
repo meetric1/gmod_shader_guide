@@ -222,6 +222,11 @@ Now that we have the basics on everything pixel shader related, it's time to jum
 Like I explained earlier in [The Shader Pipeline](#the-shader-pipeline), vertex shaders are the section of code which transforms 3D coordinates onto the screen.\
 As you'd expect, vertex shaders run shader code for every vertex.
 
+Vertex shaders are also super important, as they give lots of information to the pixel shader. Usually, vertex shaders pass [https://en.wikipedia.org/wiki/UV_mapping](texture coordinates) but it really is up to you.
+
+> [!NOTE]
+> Values passed to the pixel shader are [interpolated](https://en.wikipedia.org/wiki/Interpolation). This can be visualized in [Example 11](#example-11---imeshes). (Each vertice gets a unique color, you can see the color getting interpolated)
+
 In this vertex shader example, we are going to be including some Valve helper functions. The source code is in the `.h` files you might have seen earlier.
 
 These files include a bunch of useful functions and definitions for us to use. A good example is `cEyePos`, which returns the current eye position of the player (as you can imagine, this can be useful in many types of shaders).
