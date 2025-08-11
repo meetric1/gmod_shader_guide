@@ -194,7 +194,7 @@ On the GPU, a group of threads, called a warp, are launched in an area of the sc
 
 Here is an example:
 ```
-if (PIXEL.x <= 2) {
+if (PIXEL.x < 2) {
     do_work_1();
 } else {
     do_work_2();
