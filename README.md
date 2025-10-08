@@ -246,7 +246,7 @@ Then, take a look at `example5_ps2x.hlsl`. Feel free to make your own changes.
 
 # [Example 6] - Vertex Shader Constants
 
-![meme](https://github.com/user-attachments/assets/cbd5d599-ae07-4de6-90bc-027ce073a128)
+<img width="484" height="530" alt="meme" src="https://github.com/user-attachments/assets/a4e2bb67-879d-4d06-b268-2bc7d3a89725" />
 
 The source code for `screenspace_general` does not specify any custom constants we can use to input data into the vertex shader.
 
