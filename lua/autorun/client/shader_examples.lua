@@ -87,8 +87,8 @@ local function set_vertex_metadata(x, y, z)
 end
 
 local function example6()
-	render.SetMaterial(material6)
 	set_vertex_metadata(CurTime(), 0, 0)
+	render.SetMaterial(material6)
 	render.DrawSphere(Vector(), 50, 10, 10)
 end
 
