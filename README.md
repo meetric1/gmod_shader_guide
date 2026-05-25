@@ -180,9 +180,9 @@ GPUs operate *very* different compared to CPUs, so be prepared to think a bit di
 
 ### Architecture
 
-GPU Architecture is meant for very specific set of instructions for optimial speed. GPUs are *really* good at floating point operations. Infact they are so good, a modern GPU (in 2025) can do 15 TFLOPS (or 15,000,000,000,000) floating point operations per second. That is *fast*. 
+GPU Architecture is meant for very specific set of instructions for optimial speed. GPUs are *really* good at floating point operations. Infact they are so good, a modern high-end GPU (as of 2026) can do 100 TFLOPS (or 100,000,000,000,000) floating point operations per second. That is *fast*. 
 
-Unfortunately however, that is pretty much all they're good at. GPUs are *ONLY* good at fast floating point (and integer) arithmetic. This makes them fast, but limited (think of a CPU, but dumber). Shader model 20b (the one we are using) doesn't even support doubles. If you do somehow get doubles working though, I would advise against it, as they are extremely slow and not what the GPU architecture is meant for.
+Unfortunately however, that is pretty much all they're good at. GPUs are *ONLY* good at fast floating point (and integer) arithmetic. This makes them fast, but limited (think of a CPU, but dumber). Shader model 20b (the one we are using) doesn't even support doubles. If you do somehow get doubles working though, I would advise against it, as they are extremely slow and not what the GPU architecture is built for.
 
 ### Control Flow
 
@@ -194,13 +194,16 @@ On the GPU, a group of threads, called a warp, are launched in an area of the sc
 
 Here is an example:
 ```
-if (PIXEL.x < 2) {
-    do_work_1();
+if (PIXEL.x < 4) {
+    FunctionA();
 } else {
-    do_work_2();
+    FunctionX();
 }
 ```
-Lets pretend we have 1 warp with 4 threads named `0`, `1`, `2`, and `3`. Pretend we calculating a row of 4 pixels. When the GPU reaches the `if` statement, threads `2` and `3` are deactivated until threads `0` and `1` are finished with `do_work_1()`. Then, threads `0`, `1` are deactivated, and `2`, `3` are activated. Then, after `do_work_2()` finishes, all the threads are reactivated and the code continues execution. We have effectively doubled the amount of time it took to calculate `do_work_1()` and `do_work_2()`.
+Lets pretend we have 1 warp with 8 threads (each corrisponding to a pixel). When the GPU reaches the `if` statement, threads `4` though `7` are deactivated until threads `0` through `3` finish with `FunctionA()`. Then, threads `4` through `7` are reactivated, and `0` through `3` are deactivated until `FunctionX()` finishes. All the threads are then reactivated and the code continues execution. We have effectively "doubled" the amount of time it took to calculate `FunctionA()` and `FunctionX()`.
+
+<img width="675" height="202" alt="image" src="https://github.com/user-attachments/assets/1a5bc1a4-e056-4cb6-aea7-c4a9f8af37fd" />\
+<sup><sub>(image from [NVIDIA TESLA V100 GPU ARCHITECTURE](https://images.nvidia.com/content/volta-architecture/pdf/volta-architecture-whitepaper.pdf))<sup><sub>
 
 Don't let this mislead you though. Using an `if` statement does not always halve your performance. This is only true in the worst case scenario.\
 Remember that if all threads take the same branch, efficiency is not lost.
@@ -213,7 +216,7 @@ In this guide, We are using shader model 20b. Model 20b is interesting because (
 
 Shader model 30 does support dynamic loops, but for now I would suggest avoiding them, as infinite loops on the GPU lock up your computer and usually require a full system restart.
 
-To continue, navigate to `gmod_shader_guide/shaders` and take a look at `example4_ps2x.hlsl`
+Navigate to `gmod_shader_guide/shaders` and take a look at `example4_ps2x.hlsl` for a demonstration.
 
 # [Example 5] - Vertex Shaders
 
