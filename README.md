@@ -1,14 +1,14 @@
 # The Comprehensive GMod Shader Guide
 Hello! Welcome to my GMod Shader Guide!
 
-It consists of everything I have learned making GMod shaders over the past few years. I aim to teach anyone new with shaders, specifically shaders within SourceEngine and GMod.
+It consists of everything I have learned making GMod shaders over the past few years. I aim to teach anyone new with shaders, specifically shaders within the Source Engine and GMod.
 
 This guide **ASSUMES** you know the basics of how to code, including syntax, variables, and control flow.
 
 If you do not know how to code I suggest doing a couple GLua projects and then coming back to this guide, as it is quite technical and a bit complex.
 
 > [!NOTE]
-> This guide does not cover *everything* about gmod shaders and HLSL, but I will try my best to include everything that is relevant. If you discover something new, **PLEASE** share it! Feel free to create an issue or make a pull request and add your own shader examples.
+> This guide does not cover *everything* about GMod shaders and HLSL, but I will try my best to include everything that is relevant. If you discover something new, **PLEASE** share it! Feel free to create an issue or make a pull request and add your own shader examples.
 
 > [!NOTE]
 > **FOR THIS GUIDE, PLEASE LOAD INTO** `gm_construct` **AS IT IS THE MAP THESE VISUALS ARE BASED AROUND**.
@@ -34,7 +34,7 @@ If you do not know how to code I suggest doing a couple GLua projects and then c
 - [We're Done!](#were-done)
 
 # What is a Shader?
-You may be asking to yourself, `what is a shader and why should I care?`, well have you ever wondered how games are able to display such complex geometry and graphics? At some point in any game you play, there is code running on your [GPU](https://en.wikipedia.org/wiki/Graphics_processing_unit) that determines the color of every pixel displayed on your screen. Yes, you heard that right, for *every* pixel there is code running to determine its color, in real time. Thats what we'll be writing today.
+You may be asking to yourself, `what is a shader and why should I care?`, well have you ever wondered how games are able to display such complex geometry and graphics? At some point in any game you play, there is code running on your [GPU](https://en.wikipedia.org/wiki/Graphics_processing_unit) that determines the color of every pixel displayed on your screen. Yes, you heard that right, for *every* pixel there is code running to determine its color, in real time. That's what we'll be writing today.
 
 Here are some examples of some cool shaders:\
 **GMod Grass shader (Me):**\
@@ -55,7 +55,7 @@ The Graphics Pipeline:\
 
 This guide won't go into the specifics of the math. For now, all you need to know is:
 1. Every model that you see is made up of triangles and vertices (See [mat_wireframe](https://developer.valvesoftware.com/wiki/Mat_wireframe) for a visualization within Source).
-2. Each vertice gets sent to the GPU, to be transformed onto the screen. This transformation will be controlled within your vertex shader.
+2. Each vertex gets sent to the GPU, to be transformed onto the screen. This transformation will be controlled within your vertex shader.
 3. The pixel shader then runs after that and fills in the [rasterized](https://en.wikipedia.org/wiki/Rasterisation) pixels with a color, controlled by your shader
 
 # screenspace_general
@@ -79,13 +79,13 @@ Source code of the shader (From CS:S 2015):\
 https://github.com/lua9520/source-engine-2018-cstrike15_src/blob/master/materialsystem/stdshaders/screenspace_general.cpp
 
 # Getting Started
-To start out, clone this repo into your `GarrysMod/garrysmod/addons` folder, there are 13 examples for you to look at and follow ingame.\
+To start out, clone this repo into your `GarrysMod/garrysmod/addons` folder, there are 13 examples for you to look at and follow in-game.\
 Each example will teach you about a specific topic about shaders. My hope is that by reading this guide and visualizing the shader you can get a better grasp of what is going on.
 
 Once loaded in, you should be able to type `shader_example 1` in your console to view the first shader. (It should just be a red rectangle on your screen) It isn't very interesting but we'll work on making some cool stuff.
 
 # [Example 1] - Your First Shader
-In order to make a shader, we will need something to compile it. For this guide I have decided to use [ShaderCompile](https://github.com/SCell555/ShaderCompile), as it supports 64 bit and is a hell of a lot easier than setting up the normal SourceEngine shader compiler.
+In order to make a shader, we will need something to compile it. For this guide I have decided to use [ShaderCompile](https://github.com/SCell555/ShaderCompile), as it supports 64 bit and is a hell of a lot easier than setting up the normal Source Engine shader compiler.
 
 After taking a look at `shader_example 1`, please close GMod and navigate inside this repo to `gmod_shader_guide/shaders`.\
 The source code of all the shaders are in this folder as `.hlsl` files.\
@@ -113,7 +113,7 @@ If the square is red, we haven't overwritten anything and you've probably missed
 > Until you want to start editing .vmt's I suggest just restarting the game as it is the easiest method. Launching the game with `-noworkshop` helps a lot with load times.
 
 > [!TIP]
-> When you eventually start developing your own shaders, make sure to give them a distinct name, or you might get conflictions
+> When you eventually start developing your own shaders, make sure to give them a distinct name, or you might get conflicts
 
 > [!NOTE]
 > Shader model `30` is untested on Linux systems and (supposedly,) certain features may not work as intended.\
@@ -131,16 +131,16 @@ Now, navigate to `gmod_shader_guide/shaders` and open `example2_ps2x.hlsl`.\
 I have overcommented `example2_ps2x.hlsl`. Read that to get a basic grasp of the HLSL syntax. It is a lot like C or C++.\
 Try modifying the shader to do something different. Don't forget to recompile your shader!
 
-If you would like to try changing the shader ingame, compile your shader, navigate to `gmod_shader_guide/shaders/fxc` and change `example2_ps20b.vcs` to something like `example2a_ps20b.vcs`.\
+If you would like to try changing the shader in-game, compile your shader, navigate to `gmod_shader_guide/shaders/fxc` and change `example2_ps20b.vcs` to something like `example2a_ps20b.vcs`.\
 Now, navigate to `gmod_shader_guide/materials/gmod_shader_guide`. This is the folder which holds all of the materials.\
 Open `example2.vmt` in any text editor (notepad or Visual Studio Code works fine)\
 Like I explained before, .vmt files control information about the material. In this case, we are interested in the `$pixshader` flag which controls the pixel shader the material uses. Change it to whatever you renamed the shader to, so the line looks something like `$pixshader "example2a_ps20b"`, save it, and view your changes.
 
 > [!NOTE]
-> When hotloading shaders, once a name is used, it cannot be used again. So if you wanted to change your shader a second time, you'd need to name it something like `example2b_ps20b`
+> When hot loading shaders, once a name is used, it cannot be used again. So if you wanted to change your shader a second time, you'd need to name it something like `example2b_ps20b`
 
 > [!NOTE]
-> When hotloading shaders, ensure the compiled .vcs shader exists before saving changes to the .vmt
+> When hot loading shaders, ensure the compiled .vcs shader exists before saving changes to the .vmt
 
 > [!TIP]
 > You might have noticed the `$ignorez 1` flag in the .vmt, this is because all screenspace shaders *need* this flag to work properly! Otherwise they might not render
@@ -174,13 +174,13 @@ Try doing something with the unused `$c0_y` parameter!
 > Most aren't too useful, but someone might find them handy one day
 
 # [Example 4] - GPU Architecture
-Now that we know the basic syntax and general control of pixel shaders, I feel like its a good time to start looking at GPU architecture and control flow. It is important for you to think about GPUs as an entirely different computer, because in reality, they are. GPUs have their own processor, RAM, motherboard, firmware, and even cooling. 
+Now that we know the basic syntax and general control of pixel shaders, I feel like it's a good time to start looking at GPU architecture and control flow. It is important for you to think about GPUs as an entirely different computer, because in reality, they are. GPUs have their own processor, RAM, motherboard, firmware, and even cooling. 
 
 GPUs operate *very* different compared to CPUs, so be prepared to think a bit differently than normal.
 
 ### Architecture
 
-GPU Architecture is meant for very specific set of instructions for optimial speed. GPUs are *really* good at floating point operations. Infact they are so good, a modern high-end GPU (as of 2026) can do 100 TFLOPS (or 100,000,000,000,000) floating point operations per second. That is *fast*. 
+GPU Architecture is meant for very specific set of instructions for optimal speed. GPUs are *really* good at floating point operations. In fact they are so good, a modern high-end GPU (as of 2026) can do 100 TFLOPS (or 100,000,000,000,000) floating point operations per second. That is *fast*. 
 
 Unfortunately however, that is pretty much all they're good at. GPUs are *ONLY* good at fast floating point (and integer) arithmetic. This makes them fast, but limited (think of a CPU, but dumber). Shader model 20b (the one we are using) doesn't even support doubles. If you do somehow get doubles working though, I would advise against it, as they are extremely slow and not what the GPU architecture is built for.
 
@@ -188,9 +188,9 @@ Unfortunately however, that is pretty much all they're good at. GPUs are *ONLY* 
 
 Lets move on to control flow. In languages on the CPU (Lua, C++, etc), an `if` statement is not a big deal. Guarding and preventing execution of code is usually a good thing for performance.
 
-Although counterintuitive, on the GPU, this is not the case. You should avoid `if` statements when possible. Its a bit complex to explain why, but I will try my best.
+Although counterintuitive, on the GPU, this is not the case. You should avoid `if` statements when possible. It's a bit complex to explain why, but I will try my best.
 
-On the GPU, a group of threads, called a warp, are launched in an area of the screen to compute things asynchronously. Due to the GPUs architecture, when a branch occurs, this divergence will cause the other non diverging threads to hang until the statement is finished executing, and vise versa. This reduces the parallelization of GPUs and effectively halves the performance in that block of code. Each side of the if statement must be computed synchronously.
+On the GPU, a group of threads, called a warp, are launched in an area of the screen to compute things asynchronously. Due to the GPUs architecture, when a branch occurs, this divergence will cause the other non diverging threads to hang until the statement is finished executing, and vice versa. This reduces the parallelization of GPUs and effectively halves the performance in that block of code. Each side of the if statement must be computed synchronously.
 
 Here is an example:
 ```
@@ -200,7 +200,7 @@ if (PIXEL.x < 4) {
     FunctionX();
 }
 ```
-Lets pretend we have 1 warp with 8 threads (each corrisponding to a pixel). When the GPU reaches the `if` statement, threads `4` though `7` are deactivated until threads `0` through `3` finish with `FunctionA()`. Then, threads `4` through `7` are reactivated, and `0` through `3` are deactivated until `FunctionX()` finishes. All the threads are then reactivated and the code continues execution. We have effectively "doubled" the amount of time it took to calculate `FunctionA()` and `FunctionX()`.
+Lets pretend we have 1 warp with 8 threads (each corresponding to a pixel). When the GPU reaches the `if` statement, threads `4` through `7` are deactivated until threads `0` through `3` finish with `FunctionA()`. Then, threads `4` through `7` are reactivated, and `0` through `3` are deactivated until `FunctionX()` finishes. All the threads are then reactivated and the code continues execution. We have effectively "doubled" the amount of time it took to calculate `FunctionA()` and `FunctionX()`.
 
 <img width="675" height="202" alt="image" src="https://github.com/user-attachments/assets/1a5bc1a4-e056-4cb6-aea7-c4a9f8af37fd" />\
 <sup><sub>(image from [NVIDIA TESLA V100 GPU ARCHITECTURE](https://images.nvidia.com/content/volta-architecture/pdf/volta-architecture-whitepaper.pdf))<sup><sub>
@@ -298,7 +298,7 @@ Multi-render target (abbreviated MRT) is a rendering technique which allows a sh
 
 ![image](https://github.com/user-attachments/assets/d4105837-485f-4677-a802-99740487f91f)
 
-Example 8 is simply 2 different postprocessing shaders of the [framebuffer](https://en.wikipedia.org/wiki/Framebuffer) (the rendered frame) running at the same time. When you type `shader_example 8`, you will see 2 rendertargets. The top is the first output, the bottom is the second. MRT allows for up to 4 separate render targets to be written to at a time.
+Example 8 is simply 2 different postprocessing shaders of the [framebuffer](https://en.wikipedia.org/wiki/Framebuffer) (the rendered frame) running at the same time. When you type `shader_example 8`, you will see 2 render targets. The top is the first output, the bottom is the second. MRT allows for up to 4 separate render targets to be written to at a time.
 
 Take a look at `example8_ps2x.hlsl` for the syntax.
 
@@ -311,7 +311,7 @@ Take a look at `example8_ps2x.hlsl` for the syntax.
 # [Example 9] - Depth
 This isn't something that everybody really needs, but it can be handy for a few different operations, so I'll document it.
 
-A [depth buffer](https://en.wikipedia.org/wiki/Z-buffering) is basically just a rendertarget that stores the depth of a pixel on the screen. It essentially determines what triangles are allowed to draw on top of other triangles. A lower depth value means that a triangle is closer to the screen.
+A [depth buffer](https://en.wikipedia.org/wiki/Z-buffering) is basically just a render target that stores the depth of a pixel on the screen. It essentially determines what triangles are allowed to draw on top of other triangles. A lower depth value means that a triangle is closer to the screen.
 
 Example of the depth buffer:\
 ![250px-R_depthoverlay](https://github.com/user-attachments/assets/64aac3e9-bff1-4a06-9fcb-f31173318ce7)
@@ -351,11 +351,11 @@ You will also need to have flags `$softwareskin 1`, `$vertexnormal 1`, and `$mod
 
 `$vertexnormal` basically just says "Hey! this model has normals!" and lets entities / props render normally. Otherwise the material won't work.
 
-And finally, `$model` just tells SourceEngine that you can put your material on a physical entity (I'm honestly not too sure why this flag exists. Is it for performance reasons? So shaders load faster? I honestly don't know).
+And finally, `$model` just tells the Source Engine that you can put your material on a physical entity (I'm honestly not too sure why this flag exists. Is it for performance reasons? So shaders load faster? I honestly don't know).
 
 # [Example 11] - IMeshes
 
-I think its time we should move into IMeshes, which are a form of procedural geometry.
+I think it's time we move on to IMeshes, which are a form of procedural geometry.
 
 In case you don't know already, a [mesh](https://en.wikipedia.org/wiki/Polygon_mesh) is a bunch of vertices and indices that define the triangles in a model.
 
@@ -374,29 +374,29 @@ You can also give the shader more data, for instance with `mesh.UserData` which 
 Just remember when rendering these meshes to call `render.OverrideDepthEnable` or you'll run into the problem we had in [Example 10](#example-10---shaders-on-models)
 
 > [!NOTE]
-> Despite what the wiki says, avoid using [IMesh:BuildFromTriangles](https://wiki.facepunch.com/gmod/IMesh:BuildFromTriangles). [mesh.Begin](https://wiki.facepunch.com/gmod/mesh.Begin) is more efficient and has less memory overhead. Just ensure your code does not error inside of a `mesh.Begin` or you will crash (I suggest using a pcall).
+> Despite what the wiki says, avoid using [IMesh:BuildFromTriangles](https://wiki.facepunch.com/gmod/IMesh:BuildFromTriangles). [mesh.Begin](https://wiki.facepunch.com/gmod/mesh.Begin) is more efficient and has less memory overhead. Just ensure your code does not error inside of a `mesh.Begin` or you will crash (I suggest using a [pcall](https://wiki.facepunch.com/gmod/Global.pcall)).
 
 > [!NOTE]
-> To properly set up lighting on an IMesh (When using shaders like VertexLitGeneric), you will need to render a model to force SourceEngine to set up lighting.
+> To properly set up lighting on an IMesh (When using shaders like VertexLitGeneric), you will need to render a model to force the Source Engine to set up lighting.
 
 > [!NOTE]
-> All of the warnings on [this page](https://wiki.facepunch.com/gmod/Enums/MATERIAL) stating the primative types "don't work" are incorrect. They all work.
+> All of the warnings on [this page](https://wiki.facepunch.com/gmod/Enums/MATERIAL) stating the primitive types "don't work" are incorrect. They all work.
 
 # [Example 12] - Point Sprites
 We're nearing the end of this guide, which means that the upcoming examples are less practical, but still worth documenting.
 
-The point sprites in Source Engine are displayed on the screen using a [geometry shader](https://learn.microsoft.com/en-us/windows/win32/direct3d11/geometry-shader-stage).
+The point sprites in the Source Engine are displayed on the screen using a [geometry shader](https://learn.microsoft.com/en-us/windows/win32/direct3d11/geometry-shader-stage).
 
 Don't get geometry shaders confused with vertex shaders, which *modify* existing vertices. Geometry shaders allow you to *create* vertices.
 
-In this case, point sprites have a hardcoded geometry shader, which we can utilize. If we generate a mesh with the `MATERIAL_POINTS` primative and specify the `PSIZE` semantic in the vertex shader, we can create our very own point sprites.
+In this case, point sprites have a hardcoded geometry shader, which we can utilize. If we generate a mesh with the `MATERIAL_POINTS` primitive and specify the `PSIZE` semantic in the vertex shader, we can create our very own point sprites.
 
-Theres some wacky math involved in getting the sprite size look correct, but I think I've done it properly.
+There's some wacky math involved in getting the sprite size looking correct, but I think I've done it properly.
 
 Although not the most powerful thing, point sprites can create some pretty neat effects, like `shader_example 12`:\
 ![image](https://github.com/user-attachments/assets/ed54109b-abfe-4a99-99c3-5b3d1f200d0a)
 
-Unfortunately, this is pretty much the most you can do with them within Source Engine.
+Unfortunately, this is pretty much the most you can do with them within the Source Engine.
 
 > [!NOTE]
 > Point sprites for some reason have a size limit of about 100 pixels making them honestly pretty useless for anything practical
@@ -424,7 +424,7 @@ This can also be used for animated textures, as they aren't possible traditional
 > This example might not work on AMD cards, I'm not actually sure why.
 
 # We're done!
-If you made it here, you (hopefully) have read and understand everything there is to know (or atleast, that I know) about GMod shaders.\
+If you made it here, you (hopefully) have read and understand everything there is to know (or at least, that I know) about GMod shaders.\
 Please note that this is NOT a comprehensive guide on everything HLSL! There is still plenty more to learn, but this is definitely a good starting point.
 
 If you want more shader examples, check out shaders in the [Source SDK](https://github.com/ValveSoftware/source-sdk-2013/tree/master/src/materialsystem/stdshaders) (labeled as .fxc)
